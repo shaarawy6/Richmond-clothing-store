@@ -56,7 +56,7 @@ function loadCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/viewProduct.html">${item.name}</a> 
+      <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -85,7 +85,7 @@ function loadPaymentCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/viewProduct.html">${item.name}</a> 
+      <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -100,18 +100,21 @@ function loadPaymentCartItems() {
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
 }
 
-window.onload = function() {
+// Use event listeners to load the respective functions based on the page
+window.addEventListener('load', () => {
   loadCart();
-  if (window.location.pathname.endsWith('/myCart')) {
+
+  const pathname = window.location.pathname.toLowerCase();
+  console.log('Current pathname:', pathname);
+
+  if (pathname.endsWith('/mycart')) {
     loadCartItems();
-  }
-  if (window.location.pathname.endsWith('/visaCard')) {
+  } else if (pathname.endsWith('/visacard')) {
+    loadPaymentCartItems();
+  } else if (pathname.endsWith('/cash')) {
     loadPaymentCartItems();
   }
-  if (window.location.pathname.endsWith('/cash')) {
-    loadPaymentCartItems();
-  }
-};
+});
 
 document.querySelectorAll('.wrap-button .option-button').forEach(button => {
   button.addEventListener('click', () => {

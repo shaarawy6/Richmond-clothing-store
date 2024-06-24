@@ -1,6 +1,7 @@
 let cart = [];
 
 function addToCart() {
+  console.log('Adding to cart');
   let sizeElement = document.querySelector('.wrap-button .option-button.selected');
   if (!sizeElement) {
     alert('Please select a size.');
@@ -11,7 +12,7 @@ function addToCart() {
   let name = document.querySelector('.product-information h1').innerText;
   let price = document.querySelector('.product-information h3').innerText.replace('LE', '').trim();
   let imgSrc = document.getElementById("imagebox").src;
-  
+
   let item = {
     name: name,
     size: size,
@@ -23,6 +24,7 @@ function addToCart() {
   cart.push(item);
   updateCartCount();
   saveCart();
+  console.log('Cart:', cart);
 }
 
 function updateCartCount() {
@@ -31,18 +33,22 @@ function updateCartCount() {
 }
 
 function saveCart() {
+  console.log('Saving cart');
   sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function loadCart() {
+  console.log('Loading cart');
   let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
   }
+  console.log('Loaded cart:', cart);
 }
 
 function loadCartItems() {
+  console.log('Loading cart items');
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.getElementById("cart-items");
@@ -53,15 +59,15 @@ function loadCartItems() {
   cart.forEach(item => {
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
-    
+
     itemElement.innerHTML = `
-      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/HTML/viewProduct.html">${item.name}</a> 
-      <span class="size">Size: ${item.size}</span> 
-      <span class="quantity">Quantity: ${item.quantity}</span> 
+      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;">
+      <a href="/HTML/viewProduct.html">${item.name}</a>
+      <span class="size">Size: ${item.size}</span>
+      <span class="quantity">Quantity: ${item.quantity}</span>
       <span class="price">${item.price}LE</span></p>
     `;
-    
+
     cartItemsContainer.appendChild(itemElement);
     totalCount += parseInt(item.quantity);
     totalPrice += parseFloat(item.price) * parseInt(item.quantity);
@@ -69,9 +75,11 @@ function loadCartItems() {
 
   document.getElementById("cart-item-count").innerText = totalCount;
   document.getElementById("total-price").innerText = `${totalPrice}LE`;
+  console.log('Cart items loaded:', cart);
 }
 
 function loadPaymentCartItems() {
+  console.log('Loading payment cart items');
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
@@ -82,15 +90,15 @@ function loadPaymentCartItems() {
   cart.forEach(item => {
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
-    
+
     itemElement.innerHTML = `
-      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/HTML/viewProduct.html">${item.name}</a> 
-      <span class="size">Size: ${item.size}</span> 
-      <span class="quantity">Quantity: ${item.quantity}</span> 
+      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;">
+      <a href="/HTML/viewProduct.html">${item.name}</a>
+      <span class="size">Size: ${item.size}</span>
+      <span class="quantity">Quantity: ${item.quantity}</span>
       <span class="price">${item.price}LE</span></p>
     `;
-    
+
     cartItemsContainer.appendChild(itemElement);
     totalCount += parseInt(item.quantity);
     totalPrice += parseFloat(item.price) * parseInt(item.quantity);
@@ -98,6 +106,7 @@ function loadPaymentCartItems() {
 
   document.querySelector(".container2 #cart-item-count").innerText = totalCount;
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+  console.log('Payment cart items loaded:', cart);
 }
 
 window.onload = function() {

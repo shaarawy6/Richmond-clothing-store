@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="/CSS/Signup-Login.css">
+  <link rel="icon" href="/Images/logo.png" type="image/x-icon">
+  <title>Sign up | Login</title>
+</head>
+
+<body>
+  <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
+  <nav class="section__container nav__container">
+    <a href="/HTML/home.html" class="nav__logo">RICHMOND</a>
+    <ul class="nav__links">
+        <li class="link"><a href="/HTML/home.html">HOME</a></li>
+        <li class="link"><a href="/HTML/home.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
+        <li class="link"><a href="/HTML/home.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
+        <li class="link"><a href="/HTML/home.html" id="BEST-SELLER">BEST SELLER</a></li>
+        <li class="link"><a href="/HTML/home.html" id="ON-SALE">ON SALE</a></li>
+    </ul>
+    <div class="nav__icons">
+      <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
+      <span><i class="ri-search-line"></i></span>
+      <span><a href="/HTML/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+    </div>
+  </nav>
+  <div class="container" id="container">
+    <div class="form-container sign-up">
+      <form>
+        <h1>Create Account</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <span>or use your email for registration</span>
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+    <div class="form-container sign-in">
+      <form>
+        <h1>Sign In</h1>
+        <div class="social-icons">
+          <a href="#" class="icon"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <span>or use your email and password</span>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <a href="#">Forgot Your Password?</a>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <h1>Welcome Back!</h1>
+          <button class="hidden" id="login">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <h1>Hello, Friend!</h1>
+          <button class="hidden" id="register">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/JS/Signup-Login.js"></script>
+  <script src="../JS/cart.js"></script>  
+</body>
+</html>

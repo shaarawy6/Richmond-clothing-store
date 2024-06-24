@@ -21,7 +21,6 @@ function addToCart() {
   };
 
   cart.push(item);
-  console.log('Cart after adding item:', cart); // Debugging log
   updateCartCount();
   saveCart();
 }
@@ -29,19 +28,16 @@ function addToCart() {
 function updateCartCount() {
   let cartCount = document.getElementById("cart-count");
   cartCount.innerText = cart.length;
-  console.log('Cart count updated:', cart.length); // Debugging log
 }
 
 function saveCart() {
   sessionStorage.setItem('cart', JSON.stringify(cart));
-  console.log('Cart saved to sessionStorage:', cart); // Debugging log
 }
 
 function loadCart() {
   let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
-    console.log('Loaded cart from sessionStorage:', cart); // Debugging log
     updateCartCount();
   }
 }
@@ -49,12 +45,7 @@ function loadCart() {
 function loadCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
-  console.log('Cart items to load:', cart); // Debugging log
   let cartItemsContainer = document.getElementById("cart-items");
-  if (!cartItemsContainer) {
-    console.error('Cart items container not found'); // Debugging log
-    return;
-  }
   cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
@@ -78,18 +69,12 @@ function loadCartItems() {
 
   document.getElementById("cart-item-count").innerText = totalCount;
   document.getElementById("total-price").innerText = `${totalPrice}LE`;
-  console.log('Cart items loaded successfully'); // Debugging log
 }
 
 function loadPaymentCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
-  console.log('Payment cart items to load:', cart); // Debugging log
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
-  if (!cartItemsContainer) {
-    console.error('Payment cart items container not found'); // Debugging log
-    return;
-  }
   cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
@@ -113,20 +98,19 @@ function loadPaymentCartItems() {
 
   document.querySelector(".container2 #cart-item-count").innerText = totalCount;
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
-  console.log('Payment cart items loaded successfully'); // Debugging log
 }
 
 window.onload = function() {
   loadCart();
   const pathname = window.location.pathname.toLowerCase();
-  console.log('Current pathname:', pathname); // Debugging log
-  if (pathname.endsWith('mycart.html')) {
+  console.log('Current pathname:', pathname);
+  if (pathname.endsWith('/mycart.html')) {
     loadCartItems();
   }
-  if (pathname.endsWith('visacard.html')) {
+  if (pathname.endsWith('/visacard.html')) {
     loadPaymentCartItems();
   }
-  if (pathname.endsWith('cash.html')) {
+  if (pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 };

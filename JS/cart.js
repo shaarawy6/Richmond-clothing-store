@@ -31,17 +31,16 @@ function updateCartCount() {
 }
 
 function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function loadCart() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
   }
 }
-
 
 function loadCartItems() {
   let savedCart = sessionStorage.getItem('cart');
@@ -103,17 +102,16 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  updateCartCount();
   if (window.location.pathname.endsWith('/HTML/myCart.html')) {
     loadCartItems();
   }
-  if (window.location.pathname.includes('/HTML/visaCard.html') || window.location.pathname.includes('/HTML/cash.html')) {
+  if (window.location.pathname.endsWith('/HTML/visaCard.html')) {
+    loadPaymentCartItems();
+  }
+  if (window.location.pathname.endsWith('/HTML/cash.html')) {
     loadPaymentCartItems();
   }
 };
-window.addEventListener('beforeunload', function() {
-  localStorage.removeItem('cart');
-});
 
 document.querySelectorAll('.wrap-button .option-button').forEach(button => {
   button.addEventListener('click', () => {

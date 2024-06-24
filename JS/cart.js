@@ -42,8 +42,9 @@ function loadCart() {
   }
 }
 
+
 function loadCartItems() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.getElementById("cart-items");
   cartItemsContainer.innerHTML = ''; // Clear existing items
@@ -72,7 +73,7 @@ function loadCartItems() {
 }
 
 function loadPaymentCartItems() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
   cartItemsContainer.innerHTML = ''; // Clear existing items

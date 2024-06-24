@@ -112,13 +112,13 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  if (window.location.pathname.endsWith('/HTML/myCart.html')) {
+  if (window.location.pathname.toLowerCase().endsWith('/html/mycart.html')) {
     loadCartItems();
   }
-  if (window.location.pathname.endsWith('/HTML/visaCard.html')) {
+  if (window.location.pathname.toLowerCase().endsWith('/html/visacard.html')) {
     loadPaymentCartItems();
   }
-  if (window.location.pathname.endsWith('/HTML/cash.html')) {
+  if (window.location.pathname.toLowerCase().endswith('/html/cash.html')) {
     loadPaymentCartItems();
   }
 };

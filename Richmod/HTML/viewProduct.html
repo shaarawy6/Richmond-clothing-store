@@ -6,86 +6,188 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="/CSS/myCart.css">
-  <link rel="icon" href="/Images/logo.png" type="images/x-icon">
+  <link rel="stylesheet" href="/CSS/viewProduct.css">
+  <link rel="icon" href="/Images/logo.png" type="image/x-icon">
   <title>RICHMOND</title>
 </head>
 <body>
-    <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
-    <nav class="section__container nav__container">
-      <a href="/HTML/home.html" class="nav__logo">RICHMOND</a>
-      <ul class="nav__links">
-        <li class="link"><a href="/HTML/home.html">HOME</a></li>
-        <li class="link"><a href="/HTML/home.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
-        <li class="link"><a href="/HTML/home.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
-        <li class="link"><a href="/HTML/home.html" id="BEST-SELLER">BEST SELLER</a></li>
-        <li class="link"><a href="/HTML/home.html" id="ON-SALE">ON SALE</a></li>
-      </ul>
-      <div class="nav__icons">
-        <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
-        <span><i class="ri-search-line"></i></span>
-        <span><a href="/HTML/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
-      </div>
-    </nav>
+  <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
+  <nav class="section__container nav__container">
+    <a href="index.html" class="nav__logo">RICHMOND</a>
+    <ul class="nav__links">
+        <li class="link"><a href="index.html">HOME</a></li>
+        <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
+        <li class="link"><a href="index.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
+        <li class="link"><a href="index.html" id="BEST-SELLER">BEST SELLER</a></li>
+        <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
+    </ul>
+    <div class="nav__icons">
+      <!-- <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span> -->
+      <span><i class="ri-search-line"></i></span>
+      <span><a href="/HTML/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+    </div>
+  </nav>
 
-    <div class="row"> 
-      <div class="col-25">
-        <div class="container2">
-          <h4>Cart
-            <span class="product-num" style="color:black">
-              <i class="fa fa-shopping-cart"></i>
-              <b id="cart-item-count">0</b>
-            </span>
-          </h4>
-          <div id="cart-items">
-            <!-- Cart items will be dynamically inserted here -->
+  <div class="section__container main-content">
+    <section class="about">
+      <div class="about_main">
+        <div class="about_image">
+          <div class="about_small_image">
+            <img src="/Images/IMG-20240503-WA0017.jpg" onclick="functio(this)">
+            <img src="/Images/IMG-20240503-WA0016.jpg" onclick="functio(this)">
+            <img src="/Images/IMG-20240503-WA0014.jpg" onclick="functio(this)">
+            <img src="/Images/IMG-20240503-WA0013.jpg" onclick="functio(this)">
           </div>
-          <hr>
-          <p class="total">Total <span class="total-price" style="color:black"><b id="total-price">0LE</b></span></p>
-          <a href="/HTML/cash.html"><input type="submit" value="Cash" class="btn"></a>
-          <a href="/HTML/visaCard.html"><input type="submit" value="Online Payment" class="btn"></a>
+          <div class="image_container">
+            <img src="/Images/IMG-20240503-WA0028.jpg" id="imagebox">
+          </div>
         </div>
       </div>
+    </section>
+
+    <section class="product-information">
+      <h1>Basic long sleeve T-shirt</h1>
+      <h3>700.00LE</h3>
+      <p>White oversized tshirt. Black prints and white patch with three images and brand name on the back.</p>
+      <br>
+      <table class="variations" cellspacing="0" role="presentation">
+        <tbody>
+          <tr>
+            <th class="label"><label for="tshirt-size">T-shirt Size</label></th>
+            <td class="value">
+              <div class="hidden" data-wpvs_double_click="" data-wpvs_attr_title="1" data-selected="" data-swatch_type="button" data-display_type="vi-wpvs-variation-style vi-wpvs-variation-attribute-type-button vi-wpvs-variation-style-vertical" data-show_selected_item="1" data-hide_outofstock="1" data-blur_out_backorders="" data-wpvs_attribute_name="attribute_tshirt-size">
+                <div class="tshirt-size">
+                  <select id="Size" class="" name="attribute_tshirt-size" data-attribute_name="attribute_tshirt-size" data-show_option_none="yes" style="display: none;">
+                    <option value="">Choose an option</option>
+                    <option value="l">L</option>
+                    <option value="medium">Medium</option>
+                    <option value="small">Small</option>
+                    <option value="xl">XL</option>
+                  </select>
+                </div>
+                <div class="wrap-button"
+                     data-out_of_stock="blur"
+                     data-wpvs_id="1"
+                     data-attribute="attribute_tshirt-size">
+                  <div class="default"
+                       data-attribute_label="L"
+                       data-attribute_value="l"
+                       data-loop_source=""
+                       data-loop_data=""
+                       data-change_product_image="not_change">
+                    <span class="option-button">L</span>
+                    <div class="view-bottom" data-attribute_label="L">
+                      <span>L: Length 76. Width 60.</span>
+                    </div>
+                    <div class="out-of-stock"></div>
+                  </div>
+                  <div class="default"
+                       data-attribute_label="Medium"
+                       data-attribute_value="medium"
+                       data-loop_source=""
+                       data-loop_data=""
+                       data-change_product_image="not_change">
+                    <span class="option-button">Medium</span>
+                    <div class="view-bottom" data-attribute_label="Medium">
+                      <span>Medium: Length 74. Width 58.</span>
+                    </div>
+                    <div class="out-of-stock"></div>
+                  </div>
+                  <div class="default"
+                       data-attribute_label="Small"
+                       data-attribute_value="small"
+                       data-loop_source=""
+                       data-loop_data=""
+                       data-change_product_image="not_change">
+                    <span class="option-button">Small</span>
+                    <div class="view-bottom" data-attribute_label="Small">
+                      <span>Small: Length 72. Width 56.</span>
+                    </div>
+                    <div class="out-of-stock"></div>
+                  </div>
+                  <div class="default"
+                       data-attribute_label="XL"
+                       data-attribute_value="xl"
+                       data-loop_source=""
+                       data-loop_data=""
+                       data-change_product_image="not_change">
+                    <span class="option-button">XL</span>
+                    <div class="view-bottom" data-attribute_label="XL">
+                      <span>XL: Length 78. Width 62.</span>
+                    </div>
+                    <div class="out-of-stock"></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quantity">
+        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+        <input type="text" id="quantity" value="1">
+        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">ADD TO CART</button>
+      </div>
+    </section>
+  </div>
+
+  <hr>
+
+  <footer class="section__container footer__container">
+    <div class="footer__col">
+      <h4 class="footer__heading">CONTACT INFO</h4>
+      <p><i class="ri-map-pin-2-fill"></i> FIFTH SETTLEMENT</p>
+      <p><i class="ri-mail-fill"></i> Richmond.eg@gmail.com</p>
+      <p><i class="ri-phone-fill"></i> 01281234567</p>
     </div>
-    
-    <hr/>
-
-    <footer class="section__container footer__container">
-      <div class="footer__col">
-        <h4 class="footer__heading">CONTACT INFO</h4>
-        <p><i class="ri-map-pin-2-fill"></i> FIFTH SETTLEMENT</p>
-        <p><i class="ri-mail-fill"></i> Richmond.eg@gmail.com</p>
-        <p><i class="ri-phone-fill"></i> 01281234567</p>
-      </div>
-      <div class="footer__col">
-        <h4 class="footer__heading">ABOUT</h4>
-        <a href="/HTML/aboutUs.html"><p>About Us</p></a>
-        <a href="/HTML/delivery.html"><p>Delivery Information</p></a>
-      </div>
-      <div class="footer__col">
-        <h4 class="footer__heading">CUSTOMER SERVICE</h4>
-        <p>Returns</p>
-      </div>
-      <div class="footer__col">
-        <h4 class="footer__heading">Return and Exchange</h4>
-        <a href="/HTML/return-exchange.html"><p>Return and Exchange</p></a>
-      </div>
-    </footer>
-
-    <hr />
-
-    <div class="section__container footer__bar">
-      <div class="copyright">
-        copyright © 2024 RICHMOND. All rights reserved.
-      </div>
-      <div class="footer__form">
-        <form>
-          <input class="form-input" type="text" placeholder="ENTER YOUR EMAIL" />
-          <button class="sub-btn" type="submit">SUBSCRIBE</button>
-        </form>
-      </div>
+    <div class="footer__col">
+      <h4 class="footer__heading">ABOUT</h4>
+      <a href="/HTML/aboutUs.html"><p>About Us</p></a>
+      <a href="/HTML/delivery.html"><p>Delivery Information</p></a>
     </div>
+    <div class="footer__col">
+      <h4 class="footer__heading">CUSTOMER SERVICE</h4>
+      <p>Returns</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__heading">Return and Exchange</h4>
+      <a href="/HTML/return-exchange.html"><p>Return and Exchange</p></a>
+    </div>
+  </footer>
 
-    <script src="../JS/cart.js"></script>  
+  <hr>
+
+  <div class="section__container footer__bar">
+    <div class="copyright">
+      Copyright © 2024 RICHMOND. All rights reserved.
+    </div>
+    <div class="footer__form">
+      <form>
+        <input class="form-input" type="text" placeholder="ENTER YOUR EMAIL">
+        <button class="sub-btn" type="submit">SUBSCRIBE</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function functio(small) {
+      var full = document.getElementById("imagebox");
+      full.src = small.src;
+    }
+
+    function decreaseQuantity() {
+      let quantity = document.getElementById("quantity");
+      if (quantity.value > 1) {
+        quantity.value = parseInt(quantity.value) - 1;
+      }
+    }
+
+    function increaseQuantity() {
+      let quantity = document.getElementById("quantity");
+      quantity.value = parseInt(quantity.value) + 1;
+    }
+  </script>
+  <script src="../JS/cart.js"></script>  
 </body>
 </html>

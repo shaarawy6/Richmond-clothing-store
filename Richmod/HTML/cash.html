@@ -7,19 +7,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="/CSS/cart.css">
-  <link rel="icon" href="/Images/logo.png" type="images/x-icon">
+  <link rel="icon" href="/Images/logo.png" type="image/x-icon">
   <title>RICHMOND</title>
 </head>
 <body>
   <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
   <nav class="section__container nav__container">
-    <a href="/HTML/home.html" class="nav__logo">RICHMOND</a>
+    <a href="index.html" class="nav__logo">RICHMOND</a>
     <ul class="nav__links">
-      <li class="link"><a href="/HTML/home.html">HOME</a></li>
-      <li class="link"><a href="/HTML/home.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
-      <li class="link"><a href="/HTML/home.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
-      <li class="link"><a href="/HTML/home.html" id="BEST-SELLER">BEST SELLER</a></li>
-      <li class="link"><a href="/HTML/home.html" id="ON-SALE">ON SALE</a></li>
+      <li class="link"><a href="index.html">HOME</a></li>
+      <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
+      <li class="link"><a href="index.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
+      <li class="link"><a href="index.html" id="BEST-SELLER">BEST SELLER</a></li>
+      <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
     </ul>
     <div class="nav__icons">
       <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
@@ -31,22 +31,39 @@
   <div class="row">
     <div class="col-75">
       <div class="container" style="margin-right: 170px;">
-        <form action="#">
+        <form id="orderForm" onsubmit="return handleSubmit(event)">
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="Khaled Shokri">
+              <input type="text" id="fname" name="firstname" placeholder="Khaled Shokri" required>
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="text" id="email" name="email" placeholder="khaled@example.com">
+              <input type="email" id="email" name="email" placeholder="khaled@example.com" required>
               <label for="adr"><i class="fa-solid fa-house-user"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo">
+              <input type="text" id="adr" name="address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo" required>
               <label for="city"><i class="fa-solid fa-phone"></i> Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+201281234567">
+              <input type="tel" id="phone" name="phone" placeholder="+201281234567" required>
             </div>
           </div>
           <input type="submit" value="Continue to checkout" class="btn" style="margin-left: 430px;">
         </form>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-25">
+        <div class="container2">
+          <h4>Cart
+            <span class="product-num" style="color:black">
+              <i class="fa fa-shopping-cart"></i>
+              <b id="cart-item-count">0</b>
+            </span>
+          </h4>
+          <div id="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+          </div>
+          <hr>
+          <p class="total">Total <span class="total-price" style="color:black"><b id="total-price">0LE</b></span></p>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +88,7 @@
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">Return and Exchange</h4>
-      <a href="/HTML/return-exchange.html"><p>Rerurn and Exchange</p></a>
+      <a href="/HTML/return-exchange.html"><p>Return and Exchange</p></a>
     </div>
   </footer>
   <hr />
@@ -88,5 +105,89 @@
     </div>
   </div>
   <script src="../JS/cart.js"></script>  
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      // Validate form fields
+      const form = document.getElementById('orderForm');
+      if (!form.checkValidity()) {
+        alert('Please fill out all required fields.');
+        return false;
+      }
+
+      // Collect form data
+      const formData = new FormData(form);
+      const userDetails = {
+        fullname: formData.get('firstname'),
+        email: formData.get('email'),
+        address: formData.get('address'),
+        phone: formData.get('phone'),
+      };
+
+      // Collect cart details
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      const cartDetails = cart.map(item => ({
+        name: item.name,
+        size: item.size,
+        quantity: item.quantity,
+        price: item.price,
+        imgSrc: item.imgSrc,
+      }));
+
+      // Send emails
+      sendEmails(userDetails, cartDetails);
+
+      // Clear cart
+      sessionStorage.removeItem('cart');
+      alert('Order submitted successfully!');
+      window.location.href = 'index.html';
+    }
+
+    function sendEmails(userDetails, cartDetails) {
+      const userConfirmationMessage = `
+        <h1>Order Confirmation</h1>
+        <p>Thank you for your order, ${userDetails.fullname}!</p>
+        <p>Here are the details of your order:</p>
+        <ul>
+          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
+        </ul>
+        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
+      `;
+
+      const ownerNotificationMessage = `
+        <h1>New Order Received</h1>
+        <p>Full Name: ${userDetails.fullname}</p>
+        <p>Email: ${userDetails.email}</p>
+        <p>Address: ${userDetails.address}</p>
+        <p>Phone: ${userDetails.phone}</p>
+        <p>Order Details:</p>
+        <ul>
+          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
+        </ul>
+        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
+      `;
+
+      fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail: userDetails.email,
+          userMessage: userConfirmationMessage,
+          ownerEmail: 'aliahmed6yhb@gmail.com',
+          ownerMessage: ownerNotificationMessage,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Emails sent successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error sending emails:', error);
+      });
+    }
+  </script>
 </body>
 </html>

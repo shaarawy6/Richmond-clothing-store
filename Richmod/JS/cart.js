@@ -31,11 +31,11 @@ function updateCartCount() {
 }
 
 function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function loadCart() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
@@ -43,7 +43,7 @@ function loadCart() {
 }
 
 function loadCartItems() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.getElementById("cart-items");
   cartItemsContainer.innerHTML = ''; // Clear existing items
@@ -71,10 +71,45 @@ function loadCartItems() {
   document.getElementById("total-price").innerText = `${totalPrice}LE`;
 }
 
+function loadPaymentCartItems() {
+  let savedCart = sessionStorage.getItem('cart');
+  let cart = savedCart ? JSON.parse(savedCart) : [];
+  let cartItemsContainer = document.querySelector(".container2 #cart-items");
+  cartItemsContainer.innerHTML = ''; // Clear existing items
+  let totalCount = 0;
+  let totalPrice = 0;
+
+  cart.forEach(item => {
+    let itemElement = document.createElement("div");
+    itemElement.classList.add("cart-item");
+    
+    itemElement.innerHTML = `
+      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
+      <a href="/HTML/viewProduct.html">${item.name}</a> 
+      <span class="size">Size: ${item.size}</span> 
+      <span class="quantity">Quantity: ${item.quantity}</span> 
+      <span class="price">${item.price}LE</span></p>
+    `;
+    
+    cartItemsContainer.appendChild(itemElement);
+    totalCount += parseInt(item.quantity);
+    totalPrice += parseFloat(item.price) * parseInt(item.quantity);
+  });
+
+  document.querySelector(".container2 #cart-item-count").innerText = totalCount;
+  document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+}
+
 window.onload = function() {
   loadCart();
   if (window.location.pathname.endsWith('/HTML/myCart.html')) {
     loadCartItems();
+  }
+  if (window.location.pathname.endsWith('/HTML/visaCard.html')) {
+    loadPaymentCartItems();
+  }
+  if (window.location.pathname.endsWith('/HTML/cash.html')) {
+    loadPaymentCartItems();
   }
 };
 

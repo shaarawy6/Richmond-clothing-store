@@ -13,16 +13,16 @@
 <body>
   <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
   <nav class="section__container nav__container">
-    <a href="/HTML/home.html" class="nav__logo">RICHMOND</a>
+    <a href="index.html" class="nav__logo">RICHMOND</a>
     <ul class="nav__links">
-      <li class="link"><a href="/HTML/home.html">HOME</a></li>
-      <li class="link"><a href="/HTML/home.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
-      <li class="link"><a href="/HTML/home.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
-      <li class="link"><a href="/HTML/home.html" id="BEST-SELLER">BEST SELLER</a></li>
-      <li class="link"><a href="/HTML/home.html" id="ON-SALE">ON SALE</a></li>
+      <li class="link"><a href="index.html">HOME</a></li>
+      <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
+      <li class="link"><a href="index.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
+      <li class="link"><a href="index.html" id="BEST-SELLER">BEST SELLER</a></li>
+      <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
     </ul>
     <div class="nav__icons">
-      <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
+      <!-- <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span> -->
       <span><i class="ri-search-line"></i></span>
       <span><a href="/HTML/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
     </div>
@@ -66,25 +66,26 @@
               </div>
             </div>
           </div>
-          <input type="submit" value="Continue to Checkout" class="btn">
+          <input type="submit" value="Submit Order" class="btn">
         </form>
       </div>
     </div>
   
-    <div class="col-25">
-      <div class="container2" style="border: 2px solid black;">
-        <h4>Cart
-          <span class="price" style="color:black">
-            <i class="fa fa-shopping-cart"></i>
-            <b>4</b>
-          </span>
-        </h4>
-        <p><a href="/HTML/viewProduct.html">Product 1</a> <span class="price">700LE</span></p>
-        <p><a href="/HTML/viewProduct.html">Product 2</a> <span class="price">600LE</span></p>
-        <p><a href="/HTML/viewProduct.html">Product 3</a> <span class="price">750LE</span></p>
-        <p><a href="/HTML/viewProduct.html">Product 4</a> <span class="price">650LE</span></p>
-        <hr>
-        <p>Total <span class="price" style="color:black"><b>2700LE</b></span></p>
+    <div class="row"> 
+      <div class="col-25">
+        <div class="container2">
+          <h4>Cart
+            <span class="product-num" style="color:black">
+              <i class="fa fa-shopping-cart"></i>
+              <b id="cart-item-count">0</b>
+            </span>
+          </h4>
+          <div id="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+          </div>
+          <hr>
+          <p class="total">Total <span class="total-price" style="color:black"><b id="total-price">0LE</b></span></p>
+        </div>
       </div>
     </div>
   </div>

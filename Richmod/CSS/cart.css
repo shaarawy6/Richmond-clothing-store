@@ -167,9 +167,69 @@ body {
   margin: 0 5px;
 }
 
+.row h3 {
+  margin-top: 35px;
+  margin-left: 10px;
+}
+
 .col-25 {
-  -ms-flex: 25%;
-  flex: 25%;
+  flex: 1;
+  max-width: 300px;
+}
+
+.container2 {
+  background-color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-top: 220px;
+  margin-bottom: 150px;
+  margin-left: 430px;
+  width: 800px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.container2 h4 {
+  font-size: 25px;
+  margin: 15px 0;
+  margin-bottom: 30px;
+}
+
+.container2 a {
+  color: black;
+  font-size: 20px;
+  display: block;
+  margin: 15px 0;
+}
+
+.container2 hr {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.container2 .price {
+  float: right;
+  color: grey;
+}
+
+.container2 .total-price {
+  float: right;
+  color: grey;
+}
+
+.container2 .total {
+  margin-bottom: 25px;
+}
+
+.container2 span.price {
+  margin-top: -36px;
+}
+
+.container2 .product-num {
+  float: right;
+  color: grey;
 }
 
 .col-50 {
@@ -183,7 +243,6 @@ body {
   margin-left: -50px;
 }
 
-.col-25,
 .col-50,
 .col-75 {
   padding: 0 16px;
@@ -199,44 +258,6 @@ body {
   margin-bottom: 150px;
   margin-left: 220px;
   margin-right: 100px;
-}
-
-.container2 {
-  background-color: #ffffff;
-  position: absolute;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 20px;
-  width: 300px;
-  height: 400px;
-  margin-top: 270px;
-  margin-bottom: 150px;
-  margin-left: -50px;
-  margin-right: 150px;
-}
-
-.container2 h4 {
-  font-size: 25px;
-  margin: 15px 10px;
-  padding: 15px 10px;
-}
-
-.container2 a {
-  color: black;
-  font-size: 20px;
-  margin: 15px 10px;
-  padding: 15px 10px;
-}
-
-.container2 hr {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.row h3 {
-  margin-top: 35px;
-  margin-left: 10px;
 }
 
 input[type=text] {

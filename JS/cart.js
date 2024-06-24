@@ -30,6 +30,7 @@ function addToCart() {
 function updateCartCount() {
   let cartCount = document.getElementById("cart-count");
   cartCount.innerText = cart.length;
+  console.log('Cart count updated:', cart.length);
 }
 
 function saveCart() {
@@ -61,10 +62,10 @@ function loadCartItems() {
     itemElement.classList.add("cart-item");
 
     itemElement.innerHTML = `
-      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;">
-      <a href="/HTML/viewProduct.html">${item.name}</a>
-      <span class="size">Size: ${item.size}</span>
-      <span class="quantity">Quantity: ${item.quantity}</span>
+      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
+      <a href="viewProduct.html">${item.name}</a> 
+      <span class="size">Size: ${item.size}</span> 
+      <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
     `;
 
@@ -92,10 +93,10 @@ function loadPaymentCartItems() {
     itemElement.classList.add("cart-item");
 
     itemElement.innerHTML = `
-      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;">
-      <a href="/HTML/viewProduct.html">${item.name}</a>
-      <span class="size">Size: ${item.size}</span>
-      <span class="quantity">Quantity: ${item.quantity}</span>
+      <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
+      <a href="viewProduct.html">${item.name}</a> 
+      <span class="size">Size: ${item.size}</span> 
+      <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
     `;
 

@@ -102,13 +102,13 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  if (window.location.pathname.endsWith('/myCart.html')) {
+  if (window.location.pathname.endsWith('/myCart')) {
     loadCartItems();
   }
-  if (window.location.pathname.endsWith('/visaCard.html')) {
+  if (window.location.pathname.endsWith('/visaCard')) {
     loadPaymentCartItems();
   }
-  if (window.location.pathname.endsWith('/cash.html')) {
+  if (window.location.pathname.endsWith('/cash')) {
     loadPaymentCartItems();
   }
 };

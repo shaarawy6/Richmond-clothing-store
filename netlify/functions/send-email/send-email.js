@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 exports.handler = async (event, context) => {
   try {
+    console.log('Received event:', event);
     const { userEmail, userMessage, ownerMessage } = JSON.parse(event.body);
 
     const transporter = nodemailer.createTransport({
@@ -26,14 +27,20 @@ exports.handler = async (event, context) => {
       html: ownerMessage,
     };
 
-    await transporter.sendMail(userMailOptions);
-    await transporter.sendMail(ownerMailOptions);
+    console.log('Sending email to user:', userMailOptions);
+    const userEmailResult = await transporter.sendMail(userMailOptions);
+    console.log('User email result:', userEmailResult);
+
+    console.log('Sending email to owner:', ownerMailOptions);
+    const ownerEmailResult = await transporter.sendMail(ownerMailOptions);
+    console.log('Owner email result:', ownerEmailResult);
 
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Emails sent successfully' }),
     };
   } catch (error) {
+    console.error('Error sending emails:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.toString() }),

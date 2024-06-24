@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/CSS/myCart.css">
   <link rel="icon" href="/Images/logo.png" type="images/x-icon">
   <title>RICHMOND</title>
+  <script src="../JS/cart.js"></script>  
 </head>
 <body>
     <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
@@ -86,38 +87,5 @@
         </form>
       </div>
     </div>
-    <script>
-      function loadCartItems() {
-        let savedCart = localStorage.getItem('cart');
-        let cart = savedCart ? JSON.parse(savedCart) : [];
-        let cartItemsContainer = document.getElementById("cart-items");
-        cartItemsContainer.innerHTML = ''; // Clear existing items
-        let totalCount = 0;
-        let totalPrice = 0;
-    
-        cart.forEach(item => {
-          let itemElement = document.createElement("div");
-          itemElement.classList.add("cart-item");
-          
-          itemElement.innerHTML = `
-            <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-            <a href="viewProduct.html">${item.name}</a> 
-            <span class="size">Size: ${item.size}</span> 
-            <span class="quantity">Quantity: ${item.quantity}</span> 
-            <span class="price">${item.price}LE</span></p>
-          `;
-          
-          cartItemsContainer.appendChild(itemElement);
-          totalCount += parseInt(item.quantity);
-          totalPrice += parseInt(item.price) * parseInt(item.quantity);
-        });
-    
-        document.getElementById("cart-item-count").innerText = totalCount;
-        document.getElementById("total-price").innerText = `${totalPrice}LE`;
-      }
-    
-      window.onload = loadCartItems;
-    </script>
-    <script src="../JS/cart.js"></script>  
 </body>
 </html>

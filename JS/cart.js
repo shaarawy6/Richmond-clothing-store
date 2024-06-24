@@ -102,15 +102,13 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  const pathname = window.location.pathname.toLowerCase();
-  console.log('Current pathname:', pathname);
-  if (pathname.endsWith('/mycart.html')) {
+  if (window.location.pathname.endsWith('/myCart.html')) {
     loadCartItems();
   }
-  if (pathname.endsWith('/visacard.html')) {
+  if (window.location.pathname.endsWith('/visaCard.html')) {
     loadPaymentCartItems();
   }
-  if (pathname.endsWith('/cash.html')) {
+  if (window.location.pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 };

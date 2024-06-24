@@ -56,7 +56,7 @@ function loadCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/HTML/viewProduct.html">${item.name}</a> 
+      <a href="/viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -85,7 +85,7 @@ function loadPaymentCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="/HTML/viewProduct.html">${item.name}</a> 
+      <a href="/viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -102,13 +102,13 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  if (window.location.pathname.endsWith('/HTML/myCart.html')) {
+  if (window.location.pathname.endsWith('/myCart.html')) {
     loadCartItems();
   }
-  if (window.location.pathname.endsWith('/HTML/visaCard.html')) {
+  if (window.location.pathname.endsWith('/visaCard.html')) {
     loadPaymentCartItems();
   }
-  if (window.location.pathname.endsWith('/HTML/cash.html')) {
+  if (window.location.pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 };

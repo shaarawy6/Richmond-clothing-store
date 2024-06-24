@@ -106,7 +106,7 @@
   </div>
   <script src="../JS/cart.js"></script>  
   <script>
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
       event.preventDefault();
 
       // Validate form fields
@@ -136,16 +136,31 @@
       }));
 
       // Send emails
-      sendEmails(userDetails, cartDetails);
-
-      // Clear cart
-      sessionStorage.removeItem('cart');
-      alert('Order submitted successfully!');
-      window.location.href = 'index.html';
+      try {
+        const response = await fetch('/.netlify/functions/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userEmail: userDetails.email,
+            userMessage: generateUserMessage(userDetails, cartDetails),
+            ownerMessage: generateOwnerMessage(userDetails, cartDetails),
+          }),
+        });
+        const result = await response.json();
+        console.log('Emails sent successfully:', result);
+        alert('Order submitted successfully!');
+        sessionStorage.removeItem('cart');
+        window.location.href = 'index.html';
+      } catch (error) {
+        console.error('Error sending emails:', error);
+        alert('There was an error submitting your order.');
+      }
     }
 
-    function sendEmails(userDetails, cartDetails) {
-      const userConfirmationMessage = `
+    function generateUserMessage(userDetails, cartDetails) {
+      return `
         <h1>Order Confirmation</h1>
         <p>Thank you for your order, ${userDetails.fullname}!</p>
         <p>Here are the details of your order:</p>
@@ -154,8 +169,10 @@
         </ul>
         <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
       `;
+    }
 
-      const ownerNotificationMessage = `
+    function generateOwnerMessage(userDetails, cartDetails) {
+      return `
         <h1>New Order Received</h1>
         <p>Full Name: ${userDetails.fullname}</p>
         <p>Email: ${userDetails.email}</p>
@@ -167,27 +184,30 @@
         </ul>
         <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
       `;
-
-      fetch('/.netlify/functions/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userEmail: userDetails.email,
-          userMessage: userConfirmationMessage,
-          ownerEmail: 'aliahmed6yhb@gmail.com', // Owner's email address
-          ownerMessage: ownerNotificationMessage,
-        }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Emails sent successfully:', data);
-      })
-      .catch(error => {
-        console.error('Error sending emails:', error);
-      });
     }
+
+    window.onload = function() {
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      const cartItemsContainer = document.getElementById('cart-items');
+      const totalPriceElement = document.getElementById('total-price');
+      const cartItemCountElement = document.getElementById('cart-item-count');
+
+      cart.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.innerHTML = `
+          <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
+          <a href="#">${item.name}</a> 
+          <span class="size">Size: ${item.size}</span> 
+          <span class="quantity">Quantity: ${item.quantity}</span> 
+          <span class="price">${item.price}LE</span></p>
+        `;
+        cartItemsContainer.appendChild(itemElement);
+      });
+
+      const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+      cartItemCountElement.innerText = cart.length;
+      totalPriceElement.innerText = `${totalPrice}LE`;
+    };
   </script>
 </body>
 </html>

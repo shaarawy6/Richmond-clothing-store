@@ -6,24 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/mycart.css">
-  <link rel="icon" href="../images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/CSS/myCart.css">
+  <link rel="icon" href="/Images/logo.png" type="images/x-icon">
   <title>RICHMOND</title>
 </head>
 <body>
     <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
     <nav class="section__container nav__container">
-      <a href="../index.html" class="nav__logo">RICHMOND</a>
+      <a href="index.html" class="nav__logo">RICHMOND</a>
       <ul class="nav__links">
-        <li class="link"><a href="../index.html">HOME</a></li>
-        <li class="link"><a href="../index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
-        <li class="link"><a href="../index.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
-        <li class="link"><a href="../index.html" id="BEST-SELLER">BEST SELLER</a></li>
-        <li class="link"><a href="../index.html" id="ON-SALE">ON SALE</a></li>
+        <li class="link"><a href="index.html">HOME</a></li>
+        <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
+        <li class="link"><a href="index.html" id="NEW-ARRIVALS">NEW ARRIVALS</a></li>
+        <li class="link"><a href="index.html" id="BEST-SELLER">BEST SELLER</a></li>
+        <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
       </ul>
       <div class="nav__icons">
+        <!-- <span><a href="/HTML/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span> -->
         <span><i class="ri-search-line"></i></span>
-        <span><a href="mycart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+        <span><a href="/HTML/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
       </div>
     </nav>
 
@@ -41,12 +42,13 @@
           </div>
           <hr>
           <p class="total">Total <span class="total-price" style="color:black"><b id="total-price">0LE</b></span></p>
-          <a href="cash.html"><input type="submit" value="Cash" class="btn"></a>
-          <a href="visacard.html"><input type="submit" value="Online Payment" class="btn"></a>
+          <a href="/HTML/cash.html"><input type="submit" value="Cash" class="btn"></a>
+          <a href="/HTML/visaCard.html"><input type="submit" value="Online Payment" class="btn"></a>
         </div>
       </div>
     </div>
     
+
     <hr/>
 
     <footer class="section__container footer__container">
@@ -58,8 +60,8 @@
       </div>
       <div class="footer__col">
         <h4 class="footer__heading">ABOUT</h4>
-        <a href="aboutus.html"><p>About Us</p></a>
-        <a href="delivery.html"><p>Delivery Information</p></a>
+        <a href="/HTML/aboutUs.html"><p>About Us</p></a>
+        <a href="/HTML/delivery.html"><p>Delivery Information</p></a>
       </div>
       <div class="footer__col">
         <h4 class="footer__heading">CUSTOMER SERVICE</h4>
@@ -67,7 +69,7 @@
       </div>
       <div class="footer__col">
         <h4 class="footer__heading">Return and Exchange</h4>
-        <a href="return-exchange.html"><p>Return and Exchange</p></a>
+        <a href="/HTML/return-exchange.html"><p>Rerurn and Exchange</p></a>
       </div>
     </footer>
 
@@ -84,42 +86,38 @@
         </form>
       </div>
     </div>
-
     <script>
       function loadCartItems() {
-        console.log('Loading cart items');
-        let savedCart = sessionStorage.getItem('cart');
+        let savedCart = localStorage.getItem('cart');
         let cart = savedCart ? JSON.parse(savedCart) : [];
-        console.log('Saved cart:', cart);
         let cartItemsContainer = document.getElementById("cart-items");
         cartItemsContainer.innerHTML = ''; // Clear existing items
         let totalCount = 0;
         let totalPrice = 0;
-
+    
         cart.forEach(item => {
           let itemElement = document.createElement("div");
           itemElement.classList.add("cart-item");
-
+          
           itemElement.innerHTML = `
             <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-            <a href="viewproduct.html">${item.name}</a> 
+            <a href="/HTML/viewProduct.html">${item.name}</a> 
             <span class="size">Size: ${item.size}</span> 
             <span class="quantity">Quantity: ${item.quantity}</span> 
             <span class="price">${item.price}LE</span></p>
           `;
-
+          
           cartItemsContainer.appendChild(itemElement);
           totalCount += parseInt(item.quantity);
-          totalPrice += parseFloat(item.price) * parseInt(item.quantity);
+          totalPrice += parseInt(item.price) * parseInt(item.quantity);
         });
-
+    
         document.getElementById("cart-item-count").innerText = totalCount;
         document.getElementById("total-price").innerText = `${totalPrice}LE`;
-        console.log('Cart items loaded:', cart);
       }
-
+    
       window.onload = loadCartItems;
     </script>
-    <script src="../js/cart.js"></script>  
+    <script src="../JS/cart.js"></script>  
 </body>
 </html>

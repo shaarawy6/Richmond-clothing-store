@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  <link rel="stylesheet" href="../CSS/myCart.css">
-  <link rel="icon" href="../Images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="../css/mycart.css">
+  <link rel="icon" href="../images/logo.png" type="image/x-icon">
   <title>RICHMOND</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
       </ul>
       <div class="nav__icons">
         <span><i class="ri-search-line"></i></span>
-        <span><a href="myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+        <span><a href="mycart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
       </div>
     </nav>
 
@@ -42,7 +42,7 @@
           <hr>
           <p class="total">Total <span class="total-price" style="color:black"><b id="total-price">0LE</b></span></p>
           <a href="cash.html"><input type="submit" value="Cash" class="btn"></a>
-          <a href="visaCard.html"><input type="submit" value="Online Payment" class="btn"></a>
+          <a href="visacard.html"><input type="submit" value="Online Payment" class="btn"></a>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
       </div>
       <div class="footer__col">
         <h4 class="footer__heading">ABOUT</h4>
-        <a href="aboutUs.html"><p>About Us</p></a>
+        <a href="aboutus.html"><p>About Us</p></a>
         <a href="delivery.html"><p>Delivery Information</p></a>
       </div>
       <div class="footer__col">
@@ -102,7 +102,7 @@
 
           itemElement.innerHTML = `
             <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-            <a href="viewProduct.html">${item.name}</a> 
+            <a href="viewproduct.html">${item.name}</a> 
             <span class="size">Size: ${item.size}</span> 
             <span class="quantity">Quantity: ${item.quantity}</span> 
             <span class="price">${item.price}LE</span></p>
@@ -120,6 +120,6 @@
 
       window.onload = loadCartItems;
     </script>
-    <script src="../JS/cart.js"></script>  
+    <script src="../js/cart.js"></script>  
 </body>
 </html>

@@ -63,7 +63,7 @@ function loadCartItems() {
 
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="viewProduct.html">${item.name}</a> 
+      <a href="viewproduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -94,7 +94,7 @@ function loadPaymentCartItems() {
 
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="viewProduct.html">${item.name}</a> 
+      <a href="viewproduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>

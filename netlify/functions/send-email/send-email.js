@@ -2,37 +2,31 @@ const nodemailer = require('nodemailer');
 
 exports.handler = async (event, context) => {
   try {
-    const { userEmail, userMessage, ownerEmail, ownerMessage } = JSON.parse(event.body);
+    const { userEmail, userMessage, ownerMessage } = JSON.parse(event.body);
 
-    // Create a Nodemailer transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // Use your email service provider
+      service: 'gmail',
       auth: {
-        user: 'your-email@example.com', // Your email
-        pass: 'your-email-password', // Your email password or an app password if 2FA is enabled
+        user: process.env.email,
+        pass: process.env.pass,
       },
     });
 
-    // Define email options for the user
     const userMailOptions = {
-      from: 'your-email@example.com',
+      from: process.env.email,
       to: userEmail,
       subject: 'Order Confirmation',
       html: userMessage,
     };
 
-    // Define email options for the owner
     const ownerMailOptions = {
-      from: 'your-email@example.com',
-      to: ownerEmail,
+      from: process.env.email,
+      to: 'aliahmed6yhb@gmail.com',
       subject: 'New Order Received',
       html: ownerMessage,
     };
 
-    // Send the email to the user
     await transporter.sendMail(userMailOptions);
-
-    // Send the email to the owner
     await transporter.sendMail(ownerMailOptions);
 
     return {

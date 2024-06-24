@@ -58,6 +58,7 @@ function loadCartItems() {
   let totalPrice = 0;
 
   cart.forEach(item => {
+    console.log('Adding item to cart:', item);
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
 
@@ -89,6 +90,7 @@ function loadPaymentCartItems() {
   let totalPrice = 0;
 
   cart.forEach(item => {
+    console.log('Adding item to payment cart:', item);
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
 
@@ -111,7 +113,9 @@ function loadPaymentCartItems() {
 }
 
 window.onload = function() {
+  console.log('Window loaded');
   loadCart();
+  console.log('Current path:', window.location.pathname.toLowerCase());
   if (window.location.pathname.toLowerCase().endsWith('/html/mycart.html')) {
     loadCartItems();
   }

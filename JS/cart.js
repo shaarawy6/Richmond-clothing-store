@@ -21,7 +21,6 @@ function addToCart() {
   };
 
   cart.push(item);
-  console.log('Cart after adding item:', cart);
   updateCartCount();
   saveCart();
 }
@@ -39,7 +38,6 @@ function loadCart() {
   let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
-    console.log('Loaded cart:', cart);
     updateCartCount();
   }
 }
@@ -47,12 +45,7 @@ function loadCart() {
 function loadCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
-  console.log('Cart items to load:', cart);
   let cartItemsContainer = document.getElementById("cart-items");
-  if (!cartItemsContainer) {
-    console.error('Cart items container not found');
-    return;
-  }
   cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
@@ -63,7 +56,7 @@ function loadCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="viewProduct.html">${item.name}</a> 
+      <a href="/viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -81,12 +74,7 @@ function loadCartItems() {
 function loadPaymentCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
-  console.log('Payment cart items to load:', cart);
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
-  if (!cartItemsContainer) {
-    console.error('Payment cart items container not found');
-    return;
-  }
   cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
@@ -97,7 +85,7 @@ function loadPaymentCartItems() {
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
-      <a href="viewProduct.html">${item.name}</a> 
+      <a href="/viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
       <span class="price">${item.price}LE</span></p>
@@ -114,15 +102,13 @@ function loadPaymentCartItems() {
 
 window.onload = function() {
   loadCart();
-  const pathname = window.location.pathname.toLowerCase();
-  console.log('Current pathname:', pathname);
-  if (pathname.endsWith('mycart.html')) {
+  if (window.location.pathname.endsWith('/myCart.html')) {
     loadCartItems();
   }
-  if (pathname.endsWith('visacard.html')) {
+  if (window.location.pathname.endsWith('/visaCard.html')) {
     loadPaymentCartItems();
   }
-  if (pathname.endsWith('cash.html')) {
+  if (window.location.pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 };

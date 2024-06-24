@@ -31,17 +31,16 @@ function updateCartCount() {
 }
 
 function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function loadCart() {
-  let savedCart = localStorage.getItem('cart');
+  let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
   }
 }
-
 
 function loadCartItems() {
   let savedCart = sessionStorage.getItem('cart');

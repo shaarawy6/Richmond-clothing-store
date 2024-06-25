@@ -23,7 +23,13 @@ function handleSubmit(event) {
 
   // Collect cart details
   const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-  const cartDetails = cart.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('<br>');
+  const cartDetails = cart.map(item => `
+    <tr>
+      <td>${item.name}</td>
+      <td>${item.size}</td>
+      <td>${item.quantity}</td>
+      <td>${item.price}LE</td>
+    </tr>`).join('');
 
   // Populate the hidden order_details field
   document.getElementById('order_details').value = `
@@ -34,7 +40,15 @@ function handleSubmit(event) {
     <p>Phone: ${userDetails.phone}</p>
     <p>City: ${userDetails.city}</p>
     <p>Order Details:</p>
-    ${cartDetails}
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+      <tr>
+        <th>Product Name</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+      ${cartDetails}
+    </table>
     <p>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
   `;
 

@@ -31,18 +31,23 @@
   <div class="row">
     <div class="col-75">
       <div class="container" style="margin-right: 170px;">
-        <form id="orderForm" action="https://formsubmit.co/b7afa41ac8f2f7af942db1a6ae5a464c" method="POST">
+        <form id="orderForm" action="https://formsubmit.co/richmondstore.eg@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Order Received">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_honey" style="display:none">
+          <input type="hidden" name="order_details" id="order_details">
+
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="Khaled Shokri" required>
+              <input type="text" id="fname" name="Full Name" placeholder="Khaled Shokri" required>
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="email" id="email" name="email" placeholder="khaled@example.com" required>
+              <input type="email" id="email" name="Email" placeholder="khaled@example.com" required>
               <label for="adr"><i class="fa-solid fa-house-user"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo" required>
+              <input type="text" id="adr" name="Address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo" required>
               <label for="city"><i class="fa-solid fa-phone"></i> Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+201281234567" required>
+              <input type="tel" id="phone" name="Phone Number" placeholder="+201281234567" required>
             </div>
           </div>
           <input type="submit" value="Continue to checkout" class="btn" style="margin-left: 430px;">
@@ -106,6 +111,8 @@
   </div>
   <script src="../JS/cart.js"></script>  
   <script>
+    document.getElementById('orderForm').addEventListener('submit', handleSubmit);
+
     function handleSubmit(event) {
       event.preventDefault();
 
@@ -119,74 +126,30 @@
       // Collect form data
       const formData = new FormData(form);
       const userDetails = {
-        fullname: formData.get('firstname'),
-        email: formData.get('email'),
-        address: formData.get('address'),
-        phone: formData.get('phone'),
+        fullname: formData.get('Full Name'),
+        email: formData.get('Email'),
+        address: formData.get('Address'),
+        phone: formData.get('Phone Number'),
       };
 
       // Collect cart details
       const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-      const cartDetails = cart.map(item => ({
-        name: item.name,
-        size: item.size,
-        quantity: item.quantity,
-        price: item.price,
-        imgSrc: item.imgSrc,
-      }));
+      const cartDetails = cart.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('<br>');
 
-      // Send emails
-      sendEmails(userDetails, cartDetails);
-
-      // Clear cart
-      sessionStorage.removeItem('cart');
-      alert('Order submitted successfully!');
-      window.location.href = 'index.html';
-    }
-
-    function sendEmails(userDetails, cartDetails) {
-      const userConfirmationMessage = `
-        <h1>Order Confirmation</h1>
-        <p>Thank you for your order, ${userDetails.fullname}!</p>
-        <p>Here are the details of your order:</p>
-        <ul>
-          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
-        </ul>
-        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
-      `;
-
-      const ownerNotificationMessage = `
+      // Populate the hidden order_details field
+      document.getElementById('order_details').value = `
         <h1>New Order Received</h1>
         <p>Full Name: ${userDetails.fullname}</p>
         <p>Email: ${userDetails.email}</p>
         <p>Address: ${userDetails.address}</p>
         <p>Phone: ${userDetails.phone}</p>
         <p>Order Details:</p>
-        <ul>
-          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
-        </ul>
-        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
+        ${cartDetails}
+        <p>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
       `;
 
-      fetch('/.netlify/functions/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userEmail: userDetails.email,
-          userMessage: userConfirmationMessage,
-          ownerEmail: 'aliahmed6yhb@gmail.com',
-          ownerMessage: ownerNotificationMessage,
-        }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Emails sent successfully:', data);
-      })
-      .catch(error => {
-        console.error('Error sending emails:', error);
-      });
+      // Submit the form
+      form.submit();
     }
   </script>
 </body>

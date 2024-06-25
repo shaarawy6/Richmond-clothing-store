@@ -12,7 +12,7 @@
   <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script type="text/javascript">
       (function(){
-          emailjs.init("21zHZPJBJYQAujPhW");
+          emailjs.init("21zHZPJBJYQAujPhW"); // Replace with your actual Public Key
       })();
   </script>
 </head>
@@ -131,6 +131,8 @@
         phone: formData.get('phone'),
       };
 
+      console.log("User details: ", userDetails);
+
       // Collect cart details
       const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
       const cartDetails = cart.map(item => ({
@@ -140,6 +142,8 @@
         price: item.price,
         imgSrc: item.imgSrc,
       }));
+
+      console.log("Cart details: ", cartDetails);
 
       // Send emails
       sendEmails(userDetails, cartDetails);
@@ -169,6 +173,9 @@
         order_details: cartDetails.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('\n'),
         total: cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)
       };
+
+      console.log("User Template Params: ", userTemplateParams);
+      console.log("Owner Template Params: ", ownerTemplateParams);
 
       emailjs.send('service_m8cjmj4', 'template_kohwo7f', userTemplateParams)
         .then(function(response) {

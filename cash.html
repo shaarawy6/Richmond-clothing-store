@@ -31,7 +31,7 @@
   <div class="row">
     <div class="col-75">
       <div class="container" style="margin-right: 170px;">
-        <form id="orderForm" onsubmit="return handleSubmit(event)">
+        <form id="orderForm" action="https://formsubmit.co/b7afa41ac8f2f7af942db1a6ae5a464c" method="POST">
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
@@ -41,15 +41,8 @@
               <input type="email" id="email" name="email" placeholder="khaled@example.com" required>
               <label for="adr"><i class="fa-solid fa-house-user"></i> Address</label>
               <input type="text" id="adr" name="address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo" required>
-              <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+              <label for="city"><i class="fa-solid fa-phone"></i> Phone Number</label>
               <input type="tel" id="phone" name="phone" placeholder="+201281234567" required>
-              <label for="carrier">Carrier:</label>
-              <select id="carrier" name="carrier" required>
-                <option value="vtext.com">Verizon</option>
-                <option value="txt.att.net">AT&T</option>
-                <option value="tmomail.net">T-Mobile</option>
-                <option value="messaging.sprintpcs.com">Sprint</option>
-              </select>
             </div>
           </div>
           <input type="submit" value="Continue to checkout" class="btn" style="margin-left: 430px;">
@@ -104,20 +97,32 @@
     <div class="copyright">
       copyright © 2024 RICHMOND. All rights reserved.
     </div>
+    <div class="footer__form">
+      <form>
+        <input class="form-input" type="text" placeholder="ENTER YOUR EMAIL" />
+        <button class="sub-btn" type="submit">SUBSCRIBE</button>
+      </form>
+    </div>
   </div>
+  <script src="../JS/cart.js"></script>  
   <script>
     function handleSubmit(event) {
       event.preventDefault();
 
-      // Collect form data
+      // Validate form fields
       const form = document.getElementById('orderForm');
+      if (!form.checkValidity()) {
+        alert('Please fill out all required fields.');
+        return false;
+      }
+
+      // Collect form data
       const formData = new FormData(form);
       const userDetails = {
         fullname: formData.get('firstname'),
         email: formData.get('email'),
         address: formData.get('address'),
         phone: formData.get('phone'),
-        carrier: formData.get('carrier')
       };
 
       // Collect cart details
@@ -126,11 +131,12 @@
         name: item.name,
         size: item.size,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
+        imgSrc: item.imgSrc,
       }));
 
-      // Send SMS
-      sendSMS(userDetails, cartDetails);
+      // Send emails
+      sendEmails(userDetails, cartDetails);
 
       // Clear cart
       sessionStorage.removeItem('cart');
@@ -138,27 +144,49 @@
       window.location.href = 'index.html';
     }
 
-    function sendSMS(userDetails, cartDetails) {
-      const smsAddress = `${userDetails.phone}@${userDetails.carrier}`;
-      const smsBody = `
-        Thank you for your order, ${userDetails.fullname}!
-        Here are the details of your order:
-        ${cartDetails.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('\n')}
-        Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE
+    function sendEmails(userDetails, cartDetails) {
+      const userConfirmationMessage = `
+        <h1>Order Confirmation</h1>
+        <p>Thank you for your order, ${userDetails.fullname}!</p>
+        <p>Here are the details of your order:</p>
+        <ul>
+          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
+        </ul>
+        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
       `;
 
-      Email.send({
-        Host: "smtp.gmail.com",
-        Username: "richmondstore.eg@gmail.com",
-        Password: "pfgxccsgfuaeuhpl",
-        To: smsAddress,
-        From: "aliahmed6yhb@gmail.com",
-        Subject: "",
-        Body: smsBody
-      }).then(
-        message => alert("SMS sent successfully!"),
-        error => alert("Failed to send SMS. Please try again.")
-      );
+      const ownerNotificationMessage = `
+        <h1>New Order Received</h1>
+        <p>Full Name: ${userDetails.fullname}</p>
+        <p>Email: ${userDetails.email}</p>
+        <p>Address: ${userDetails.address}</p>
+        <p>Phone: ${userDetails.phone}</p>
+        <p>Order Details:</p>
+        <ul>
+          ${cartDetails.map(item => `<li>${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE</li>`).join('')}
+        </ul>
+        <p>Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
+      `;
+
+      fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail: userDetails.email,
+          userMessage: userConfirmationMessage,
+          ownerEmail: 'aliahmed6yhb@gmail.com',
+          ownerMessage: ownerNotificationMessage,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Emails sent successfully:', data);
+      })
+      .catch(error => {
+        console.error('Error sending emails:', error);
+      });
     }
   </script>
 </body>

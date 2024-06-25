@@ -9,11 +9,50 @@
   <link rel="stylesheet" href="/CSS/cart.css">
   <link rel="icon" href="/Images/logo.png" type="image/x-icon">
   <title>RICHMOND</title>
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="text/javascript">
       (function(){
-          emailjs.init("21zHZPJBJYQAujPhW"); // Replace with your actual Public Key
+          emailjs.init("21zHZPJBJYQAujPhW");
       })();
+
+      function sendTestEmails() {
+          const userTemplateParams = {
+              fullname: 'Test User',
+              email: 'testuser@example.com',
+              address: '123 Test Street',
+              phone: '+1234567890',
+              order_details: 'Test Item - Size: L, Quantity: 1, Price: 100LE',
+              total: '100LE'
+          };
+
+          const ownerTemplateParams = {
+              owner_email: 'aliahmed6yhb@gmail.com',
+              fullname: 'Test User',
+              email: 'testuser@example.com',
+              address: '123 Test Street',
+              phone: '+1234567890',
+              order_details: 'Test Item - Size: L, Quantity: 1, Price: 100LE',
+              total: '100LE'
+          };
+
+          emailjs.send('service_m8cjmj4', 'template_kohwo7f', userTemplateParams)
+            .then(function(response) {
+                console.log('User email sent successfully:', response.status, response.text);
+                alert('User email sent successfully!');
+            }, function(error) {
+                console.error('Failed to send user email:', error);
+                alert('Failed to send user email.');
+            });
+
+          emailjs.send('service_m8cjmj4', 'template_5oq132m', ownerTemplateParams)
+            .then(function(response) {
+                console.log('Owner email sent successfully:', response.status, response.text);
+                alert('Owner email sent successfully!');
+            }, function(error) {
+                console.error('Failed to send owner email:', error);
+                alert('Failed to send owner email.');
+            });
+      }
   </script>
 </head>
 <body>
@@ -110,6 +149,10 @@
       </form>
     </div>
   </div>
+
+  <!-- Button to trigger email sending -->
+  <button onclick="sendTestEmails()">Send Test Emails</button>
+
   <script src="../JS/cart.js"></script>  
   <script>
     function handleSubmit(event) {
@@ -148,10 +191,10 @@
       // Send emails
       sendEmails(userDetails, cartDetails);
 
-      // // Clear cart
-      // sessionStorage.removeItem('cart');
-      // alert('Order submitted successfully!');
-      // window.location.href = 'index.html';
+      // Clear cart
+      sessionStorage.removeItem('cart');
+      alert('Order submitted successfully!');
+      window.location.href = 'index.html';
     }
 
     function sendEmails(userDetails, cartDetails) {

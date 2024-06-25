@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMTP.js Form</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="/CSS/cart.css">
   <link rel="icon" href="/Images/logo.png" type="image/x-icon">
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <title>RICHMOND</title>
 </head>
 <body>
   <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
@@ -23,27 +22,34 @@
       <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
     </ul>
     <div class="nav__icons">
-      <span><a href="Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
+      <span><a href="/html/Signup-Login.html"><i class="ri-shield-user-line"></i></a></span>
       <span><i class="ri-search-line"></i></span>
-      <span><a href="myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+      <span><a href="/html/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
     </div>
   </nav>
 
   <div class="row">
     <div class="col-75">
       <div class="container" style="margin-right: 170px;">
-        <form id="orderForm" onsubmit="handleSubmit(event)">
+        <form id="orderForm" onsubmit="return handleSubmit(event)">
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="fullname" placeholder="Khaled Shokri" required>
+              <input type="text" id="fname" name="firstname" placeholder="Khaled Shokri" required>
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
               <input type="email" id="email" name="email" placeholder="khaled@example.com" required>
               <label for="adr"><i class="fa-solid fa-house-user"></i> Address</label>
               <input type="text" id="adr" name="address" placeholder="Villa 17, street 90 south, district 3, fifth settlement, new cairo" required>
               <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
               <input type="tel" id="phone" name="phone" placeholder="+201281234567" required>
+              <label for="carrier">Carrier:</label>
+              <select id="carrier" name="carrier" required>
+                <option value="vtext.com">Verizon</option>
+                <option value="txt.att.net">AT&T</option>
+                <option value="tmomail.net">T-Mobile</option>
+                <option value="messaging.sprintpcs.com">Sprint</option>
+              </select>
             </div>
           </div>
           <input type="submit" value="Continue to checkout" class="btn" style="margin-left: 430px;">
@@ -80,8 +86,8 @@
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">ABOUT</h4>
-      <a href="aboutUs.html"><p>About Us</p></a>
-      <a href="delivery.html"><p>Delivery Information</p></a>
+      <a href="/html/aboutUs.html"><p>About Us</p></a>
+      <a href="/html/delivery.html"><p>Delivery Information</p></a>
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">CUSTOMER SERVICE</h4>
@@ -89,7 +95,7 @@
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">Return and Exchange</h4>
-      <a href="return-exchange.html"><p>Return and Exchange</p></a>
+      <a href="/html/return-exchange.html"><p>Return and Exchange</p></a>
     </div>
   </footer>
   <hr />
@@ -98,31 +104,8 @@
     <div class="copyright">
       copyright © 2024 RICHMOND. All rights reserved.
     </div>
-    <div class="footer__form">
-      <form>
-        <input class="form-input" type="text" placeholder="ENTER YOUR EMAIL" />
-        <button class="sub-btn" type="submit">SUBSCRIBE</button>
-      </form>
-    </div>
   </div>
-
   <script>
-    // Define your cartDetails array or object here
-    const cartDetails = [
-      {
-        name: "Product 1",
-        size: "M",
-        quantity: 2,
-        price: 300
-      },
-      {
-        name: "Product 2",
-        size: "L",
-        quantity: 1,
-        price: 500
-      }
-    ];
-
     function handleSubmit(event) {
       event.preventDefault();
 
@@ -130,50 +113,51 @@
       const form = document.getElementById('orderForm');
       const formData = new FormData(form);
       const userDetails = {
-        fullname: formData.get('fullname'),
+        fullname: formData.get('firstname'),
         email: formData.get('email'),
         address: formData.get('address'),
         phone: formData.get('phone'),
-        order_details: cartDetails.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('\n'),
-        total: cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)
+        carrier: formData.get('carrier')
       };
 
-      // Send email to customer
-      Email.send({
-        Host: "smtp.gmail.com",
-        Username: "richmondstore.eg@gmail.com",
-        Password: "pfgxccsgfuaeuhpl", // Use the app password here
-        To: userDetails.email,
-        From: "richmondstore.eg@gmail.com",
-        Subject: "Order Confirmation",
-        Body: `Thank you for your order, ${userDetails.fullname}. Your order details are as follows:<br>
-               Address: ${userDetails.address}<br>
-               Phone: ${userDetails.phone}<br>
-               Order Details: ${userDetails.order_details.replace(/\n/g, '<br>')}<br>
-               Total: ${userDetails.total}LE`
-      }).then(
-        message => alert("Order confirmation email sent successfully!"),
-        error => alert("Failed to send confirmation email. Please try again.")
-      );
+      // Collect cart details
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      const cartDetails = cart.map(item => ({
+        name: item.name,
+        size: item.size,
+        quantity: item.quantity,
+        price: item.price
+      }));
 
-      // Send email to owner
+      // Send SMS
+      sendSMS(userDetails, cartDetails);
+
+      // Clear cart
+      sessionStorage.removeItem('cart');
+      alert('Order submitted successfully!');
+      window.location.href = 'index.html';
+    }
+
+    function sendSMS(userDetails, cartDetails) {
+      const smsAddress = `${userDetails.phone}@${userDetails.carrier}`;
+      const smsBody = `
+        Thank you for your order, ${userDetails.fullname}!
+        Here are the details of your order:
+        ${cartDetails.map(item => `${item.name} - Size: ${item.size}, Quantity: ${item.quantity}, Price: ${item.price}LE`).join('\n')}
+        Total: ${cartDetails.reduce((total, item) => total + item.price * item.quantity, 0)}LE
+      `;
+
       Email.send({
         Host: "smtp.gmail.com",
         Username: "richmondstore.eg@gmail.com",
-        Password: "pfgxccsgfuaeuhpl", // Use the app password here
-        To: "aliahmed6yhb@gmail.com",
-        From: "richmondstore.eg@gmail.com",
-        Subject: "New Order Received",
-        Body: `New order details:<br>
-               Name: ${userDetails.fullname}<br>
-               Email: ${userDetails.email}<br>
-               Address: ${userDetails.address}<br>
-               Phone: ${userDetails.phone}<br>
-               Order Details: ${userDetails.order_details.replace(/\n/g, '<br>')}<br>
-               Total: ${userDetails.total}LE`
+        Password: "pfgxccsgfuaeuhpl",
+        To: smsAddress,
+        From: "aliahmed6yhb@gmail.com",
+        Subject: "",
+        Body: smsBody
       }).then(
-        message => alert("Order notification email sent to owner successfully!"),
-        error => alert("Failed to send order notification email to owner. Please try again.")
+        message => alert("SMS sent successfully!"),
+        error => alert("Failed to send SMS. Please try again.")
       );
     }
   </script>

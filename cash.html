@@ -148,6 +148,14 @@
         <p>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}LE</p>
       `;
 
+      // Clear cart in sessionStorage
+      sessionStorage.removeItem('cart');
+
+      // Update the cart display
+      document.getElementById('cart-item-count').innerText = '0';
+      document.getElementById('cart-items').innerHTML = '';
+      document.getElementById('total-price').innerText = '0LE';
+
       // Submit the form
       form.submit();
     }

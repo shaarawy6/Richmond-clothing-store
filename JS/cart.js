@@ -28,6 +28,15 @@ function addToCart() {
 function updateCartCount() {
   let cartCount = document.getElementById("cart-count");
   cartCount.innerText = cart.length;
+
+  let cartIcon = document.getElementById("cart-icon").parentElement;
+  if (cart.length === 0) {
+    cartIcon.style.pointerEvents = 'none';
+    cartIcon.style.opacity = '0.5';
+  } else {
+    cartIcon.style.pointerEvents = 'auto';
+    cartIcon.style.opacity = '1';
+  }
 }
 
 function saveCart() {
@@ -39,6 +48,8 @@ function loadCart() {
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
+  } else {
+    updateCartCount(); // Ensure cart icon state is updated even if the cart is empty
   }
 }
 

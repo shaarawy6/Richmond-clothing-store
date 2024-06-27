@@ -62,6 +62,17 @@ img {
   display: block;
 }
 
+.nav__links2 {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+}
+
 .header__bar {
   padding: 0.5rem;
   font-size: 0.8rem;
@@ -73,7 +84,7 @@ img {
 .nav__container {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -100px;
   width: 100%;
   margin-top: 20px;
   margin-left: 200px;
@@ -122,7 +133,8 @@ img {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem; 
+  margin-left: -50px;
 }
 
 .link a {

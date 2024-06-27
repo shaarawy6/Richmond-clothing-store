@@ -63,6 +63,8 @@ img {
 
 body {
   font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .nav__links2 {
@@ -94,7 +96,7 @@ body {
   top: 0;
   left: -100px;
   width: 100%;
-   margin-top: 26px;
+  margin-top: 26px;
   margin-left: 250px;
   padding: 2rem 5rem;
   display: flex;
@@ -197,8 +199,9 @@ body {
   border-radius: 20px;
   margin-top: 220px;
   margin-bottom: 150px;
-  margin-left: 330px;
-  width: 800px;
+  margin-left: -180px;
+  margin-right: 280px;
+  width: 400px;
   max-height: 600px;
   overflow-y: auto;
 }
@@ -244,6 +247,35 @@ body {
   color: grey;
 }
 
+.col-50 {
+  -ms-flex: 50%;
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%;
+  flex: 75%;
+  margin-left: -50px;
+}
+
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #ffffff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  padding: 5px 20px 15px 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 850px;
+  margin-top: 170px;
+  margin-bottom: 150px;
+  margin-left: 130px;
+  margin-right: 170px;
+}
+
 input[type=text] {
   width: 100%;
   margin-bottom: 20px;
@@ -252,7 +284,15 @@ input[type=text] {
   border-radius: 15px;
 }
 
-input[type=number] {
+input[type=email] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+input[type=tel] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -266,6 +306,55 @@ label {
   font-size: 17px;
 }
 
+select {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: var(--extra-light);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--text-dark);
+  background-color: var(--white);
+}
+
+.photo-submission {
+  margin-bottom: 20px;
+}
+
+.photo-submission label {
+  display: block;
+  font-size: 17px;
+  margin: 15px 0;
+}
+
+.photo-submission input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: var(--extra-light);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.photo-submission input[type="file"]:focus {
+  outline: none;
+  border-color: var(--text-dark);
+  background-color: var(--white);
+}
+
 .icon-container {
   margin-bottom: 20px;
   padding: 7px 0;
@@ -276,10 +365,10 @@ label {
   background-color: black;
   color: white;
   padding: 12px;
-  margin: 5px 0;
-  margin-left: 240px;
+  margin: 10px 0;
+  margin-left: 280px;
   border: none;
-  width: 35%;
+  width: 30%;
   border-radius: 15px;
   cursor: pointer;
   font-size: 17px;
@@ -460,17 +549,35 @@ span.price {
 
   .container {
     width: 400px;
-    margin-left: 15px;
+    margin-left: 59px;
+    margin-top: 130px;
+    margin-right: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    max-height: 600px;
+  }
+
+  .container .btn {
+    font-size: 10px;
+    margin-left: 120px;
+    width: 120px;
+  }
+
+  .container input {
+    width: 320px;
+  }
+
+  .col-75 {
+    padding: 0;
   }
 
   .container2 {
     width: 400px;
-    margin-left: 10px;
-  }
-
-  .container2 .btn {
-    margin-left: 120px;
-    font-size: 13px;
+    margin-left: 4px;
+    margin-top: -100px;
+    margin-right: 0;
   }
 
   .copyright {

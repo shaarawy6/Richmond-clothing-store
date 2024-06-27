@@ -65,6 +65,17 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+.nav__links2 {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+}
+
 .header__bar {
   padding: 0.5rem;
   font-size: 0.8rem;
@@ -81,9 +92,9 @@ body {
   position: fixed;
   max-width: var(--max-width);
   top: 0;
-  left: 0;
+  left: -100px;
   width: 100%;
-  margin-top: 29px;
+  margin-top: 26px;
   margin-left: 250px;
   padding: 2rem 5rem;
   display: flex;
@@ -130,7 +141,8 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem; 
+  margin-left: -50px;
 }
 
 .link a {
@@ -185,8 +197,9 @@ body {
   border-radius: 20px;
   margin-top: 220px;
   margin-bottom: 150px;
-  margin-left: 430px;
-  width: 800px;
+  margin-left: -180px;
+  margin-right: 280px;
+  width: 400px;
   max-height: 600px;
   overflow-y: auto;
 }
@@ -254,13 +267,22 @@ body {
   padding: 5px 20px 15px 20px;
   border: 2px solid black;
   border-radius: 20px;
+  width: 850px;
   margin-top: 170px;
   margin-bottom: 150px;
-  margin-left: 220px;
+  margin-left: 130px;
   margin-right: 100px;
 }
 
 input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+input[type=email] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -342,7 +364,7 @@ select:focus {
   color: white;
   padding: 12px;
   margin: 10px 0;
-  margin-left: 320px;
+  margin-left: 280px;
   border: none;
   width: 30%;
   border-radius: 15px;
@@ -443,11 +465,108 @@ span.price {
   color: var(--white);
 }
 
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
+@media (max-width: 600px) {
+  .nav__container {
+    left: -250px;
+    top: 5px;
+    background-color: transparent;
+    border-radius: 25px;
+    backdrop-filter: blur(2px);
   }
-  .col-25 {
-    margin-bottom: 20px;
+
+  .nav__links {
+    display: none;
+  }
+
+  .nav__logo {
+    font-size: 19px;
+    margin-top: -10px;
+    left: -13px;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    margin-left: -40px;
+    margin-top: -12px;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    width: 50%;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    margin-left: 205px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav__links .link {
+    text-align: center;
+    margin: 0;
+  }
+
+  .nav__links .link a {
+    padding: 10px;
+    display: block;
+  }
+
+  .nav__links.active {
+    display: flex;
+  }
+
+  .nav__icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav__icons i {
+    font-size: 1.25rem;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 70px;
+    cursor: pointer;
+  }
+
+  .nav__icons span {
+    font-size: 1.25rem;
+    margin-top: -14px;
+    margin-left: -100px;
+    cursor: pointer;
+  }
+
+  header {
+    margin-top: 0;
+  }
+
+  .header__bar {
+    top: -1px;
+  }
+
+  .container {
+    width: 400px;
+    margin-left: 15px;
+  }
+
+  .copyright {
+    margin-left: 19px;
+  }
+
+  .footer__container {
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: -15px;
+    margin-bottom: 0;
+  }
+
+  .footer__bar {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .footer__col h4 {
+    margin-top: -15px;
+    font-size: 20px;
+    color: #575c67;
   }
 }

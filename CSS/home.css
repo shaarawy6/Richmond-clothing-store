@@ -81,9 +81,9 @@ body {
   position: fixed;
   max-width: var(--max-width);
   top: 0;
-  left: 0;
+  left: -100px;
   width: 100%;
-  margin-top: 29px;
+  margin-top: 26px;
   margin-left: 250px;
   padding: 2rem 5rem;
   display: flex;
@@ -114,6 +114,17 @@ body {
   position: relative;
 }
 
+.menu-icon {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.nav__links2 {
+  display: none;
+}
+
 .nav__logo::before {
   content: "RICHMOND";
   position: absolute;
@@ -131,6 +142,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-left: -50px;
 }
 
 .link a {
@@ -153,6 +165,7 @@ body {
 .nav__icons span {
   font-size: 1.25rem;
   cursor: pointer;
+  margin-top: -14px;
 }
 
 .nav__icons span a {
@@ -680,20 +693,131 @@ header {
 }
 
 @media (width < 600px) {
+  .nav__container {
+    left: -250px;
+    top: 5px;
+    background-color: transparent;
+    border-radius: 25px;
+    backdrop-filter: blur(2px);
+  }
+
   .nav__links {
     display: none;
+  }
+
+  .nav__logo {
+    font-size: 19px;
+    margin-top: -10px;
+    left: -13px;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: -21px;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    width: 50%;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    margin-left: 205px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav__links .link {
+    text-align: center;
+    margin: 0;
+  }
+
+  .nav__links .link a {
+    padding: 10px;
+    display: block;
+  }
+
+  .nav__links.active {
+    display: flex;
+  }
+
+  .nav__icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav__icons i {
+    font-size: 1.25rem;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 70px;
+    cursor: pointer;
+  }
+
+  .nav__icons span {
+    font-size: 1.25rem;
+    margin-top: -16px;
+    margin-left: -100px;
+    cursor: pointer;
   }
 
   header {
     margin-top: 0;
   }
 
+  .header__bar {
+    top: -1px;
+  }
+
   .header__container {
     grid-template-columns: repeat(1, 1fr);
+    margin-top: 180px;
+    padding: 10px 15px;
+  }
+
+  .header__content h1 {
+    font-size: 20px;
+  }
+
+  .header__content p {
+    font-size: 11px;
   }
 
   .header__image {
-    display: none;
+    width: 200px;
+    margin-left: 200px;
+    top: -70px;
+  }
+
+  #OUR-COLLECTION {
+    margin-top: 0;
+  }
+
+  .top-bottom {
+    margin-left: 2px;
+  }
+
+  .top-bottom-card {
+    width: 180px;
+  }
+
+  .top-bottom-card .hoodies-tshirts {
+    font-size: 14px;
+  }
+
+  #NEW-ARRIVALS {
+    margin-top: 0;
+  }
+
+  #BEST-SELLER {
+    margin-top: 0;
+  }
+
+  #ON-SALE {
+    margin-top: 0;
   }
 
   .sale__grid {
@@ -704,15 +828,15 @@ header {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .news__grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .brands__container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .footer__container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: -15px;
+    margin-bottom: 0;
+  }
+
+  .footer__col h4 {
+    margin-top: -15px;
+    font-size: 20px;
+    color: #575c67;
   }
 }

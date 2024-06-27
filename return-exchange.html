@@ -13,7 +13,7 @@
 <body>
   <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
   <nav class="section__container nav__container">
-    <a href="index.html" class="nav__logo">RICHMOND</a>
+    <a href="index.html" class="nav__logo" style="margin-left: -50px;">RICHMOND</a>
     <ul class="nav__links">
       <li class="link"><a href="index.html">HOME</a></li>
       <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
@@ -24,7 +24,17 @@
     <div class="nav__icons">
       <!-- <span><a href="Signup-Login.html"><i class="ri-shield-user-line"></i></a></span> -->
       <!-- <span><i class="ri-search-line"></i></span> -->
-      <span><a href="myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count">0</span></i></a></span>
+      <div class="menu-icon">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <ul class="nav__links2">
+        <li class="link"><a href="index.html">HOME</a></li>
+        <li class="link"><a href="#OUR-COLLECTION">OUR COLLECTION</a></li>
+        <li class="link"><a href="#NEW-ARRIVALS">NEW ARRIVALS</a></li>
+        <li class="link"><a href="#BEST-SELLER">BEST SELLER</a></li>
+        <li class="link"><a href="#ON-SALE">ON SALE</a></li>
+      </ul>
+      <span><a href="/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count" style="margin-left: 10px;">0</span></i></a></span>
     </div>
   </nav>
 
@@ -46,7 +56,7 @@
                 <li>Shipping fees are non-refundable. Customers are responsible for return shipping costs.</li>
               </ol>
               <br>
-              <p>If you have questions or need further assistance regarding returns or exchanges, please dm us, or contact our customer service team at <a href="mailto:richmond.eg@gmail.com">richmond.eg@gmail.com</a>.</p>
+              <p>If you have questions or need further assistance regarding returns or exchanges, please dm us, or contact our customer service team at <a href="mailto:richmondstore.eg@gmail.com">richmondstore.eg@gmail.com</a>.</p>
               <br>
             </div>
           </div>
@@ -61,17 +71,13 @@
     <div class="footer__col">
       <h4 class="footer__heading">CONTACT INFO</h4>
       <p><i class="ri-map-pin-2-fill"></i> FIFTH SETTLEMENT</p>
-      <p><i class="ri-mail-fill"></i> Richmond.eg@gmail.com</p>
+      <p><i class="ri-mail-fill"></i> richmondstore.eg@gmail.com</p>
       <p><i class="ri-phone-fill"></i> 01281234567</p>
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">ABOUT</h4>
       <a href="aboutUs.html"><p>About Us</p></a>
       <a href="delivery.html"><p>Delivery Information</p></a>
-    </div>
-    <div class="footer__col">
-      <h4 class="footer__heading">CUSTOMER SERVICE</h4>
-      <p>Returns</p>
     </div>
     <div class="footer__col">
       <h4 class="footer__heading">Return and Exchange</h4>
@@ -92,6 +98,7 @@
       </form>
     </div>
   </div>
-  <script src="../JS/cart.js"></script>  
+  <script src="../JS/cart.js"></script> 
+  <script src="/JS/view-bar.js"></script> 
 </body>
 </html>

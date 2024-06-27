@@ -65,6 +65,17 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+.nav__links2 {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+}
+
 .header__bar {
   padding: 0.5rem;
   font-size: 0.8rem;
@@ -80,7 +91,7 @@ body {
 .nav__container {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -100px;
   width: 100%;
   margin-top: 29px;
   margin-left: 250px;
@@ -405,10 +416,6 @@ body {
 }
 
 @media (width < 600px) {
-  .nav__links {
-    display: none;
-  }
-
   header {
     margin-top: 0;
   }
@@ -429,15 +436,111 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .news__grid {
-    grid-template-columns: repeat(1, 1fr);
+  .footer__container {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .brands__container {
-    grid-template-columns: repeat(2, 1fr);
+  .nav__container {
+    left: -250px;
+    top: 5px;
+    background-color: transparent;
+    border-radius: 25px;
+    backdrop-filter: blur(2px);
+  }
+
+  .nav__links {
+    display: none;
+  }
+
+  .nav__logo {
+    font-size: 19px;
+    margin-top: -10px;
+    left: -13px;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    margin-left: -49px;
+    margin-top: -22px;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    width: 50%;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    margin-left: 205px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav__links .link {
+    text-align: center;
+    margin: 0;
+  }
+
+  .nav__links .link a {
+    padding: 10px;
+    display: block;
+  }
+
+  .nav__links.active {
+    display: flex;
+  }
+
+  .nav__icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav__icons i {
+    font-size: 1.25rem;
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 70px;
+    cursor: pointer;
+  }
+
+  .nav__icons span {
+    font-size: 1.25rem;
+    margin-top: -14px;
+    margin-left: -100px;
+    cursor: pointer;
+  }
+
+  header {
+    margin-top: 0;
+  }
+
+  .header__bar {
+    top: -1px;
+  }
+
+  .container {
+    width: 400px;
+    margin-left: 15px;
+  }
+
+  .copyright {
+    margin-left: 19px;
   }
 
   .footer__container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: -15px;
+    margin-bottom: 0;
+  }
+
+  .footer__bar {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .footer__col h4 {
+    margin-top: -15px;
+    font-size: 20px;
+    color: #575c67;
   }
 }

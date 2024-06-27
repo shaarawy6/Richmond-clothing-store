@@ -122,3 +122,35 @@ document.querySelectorAll('.wrap-button .option-button').forEach(button => {
     button.classList.add('selected');
   });
 });
+
+let deliveryFee = 0;
+
+function updateDeliveryFee() {
+  const citySelect = document.getElementById('city');
+  const selectedCity = citySelect.value;
+
+  if (selectedCity === 'cairo') {
+    deliveryFee = 50;
+  } else if (selectedCity === 'alex') {
+    deliveryFee = 60;
+  } else if (selectedCity === 'other') {
+    deliveryFee = 100;
+  } else {
+    deliveryFee = 0;
+  }
+
+  updateCartTotal();
+}
+
+function updateCartTotal() {
+  const savedCart = sessionStorage.getItem('cart');
+  const cart = savedCart ? JSON.parse(savedCart) : [];
+  let totalPrice = 0;
+
+  cart.forEach(item => {
+    totalPrice += parseFloat(item.price) * parseInt(item.quantity);
+  });
+
+  totalPrice += deliveryFee;
+  document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+}

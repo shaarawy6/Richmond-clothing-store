@@ -573,6 +573,14 @@ span.price {
     padding: 0;
   }
 
+  span.price {
+    float: right;
+    font-size: 10px;
+    color: grey;
+    margin-right: -15px;
+    margin-top: 15px;
+  }
+
   .container2 {
     width: calc(130%);
     margin-left: 4px;

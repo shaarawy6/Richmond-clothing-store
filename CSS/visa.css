@@ -580,6 +580,14 @@ span.price {
     margin-right: 0;
   }
 
+  span.price {
+    float: right;
+    font-size: 10px;
+    color: grey;
+    margin-right: -15px;
+    margin-top: 15px;
+  }
+
   .copyright {
     margin-left: 19px;
   }

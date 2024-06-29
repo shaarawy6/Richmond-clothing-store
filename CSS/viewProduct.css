@@ -56,7 +56,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.nav__links2 {
+.nav__icons .nav__links2 {
   display: none;
 }
 
@@ -288,12 +288,13 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 
 .wrap-button {
   display: flex;
   gap: 0.5rem;
+  margin-left: calc(12%);
 }
 
 .option-button {
@@ -340,7 +341,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   border-radius: 4px;
-  margin-left: 35px;
+  margin-left: 25px;
   transition: background 0.3s;
 }
 
@@ -485,12 +486,12 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .nav__container {
     left: -250px;
-    top: 5px;
-    background-color: transparent;
-    border-radius: 25px;
+    top: -0.1%;
+    background-color: white;
+    border-radius: 1px;
     backdrop-filter: blur(2px);
   }
 
@@ -565,13 +566,9 @@ body {
     top: -1px;
   }
 
-  .container {
-    width: 400px;
-    margin-left: 15px;
-  }
-
   .about {
     margin-top: -110px;
+    margin-left: calc(-1%);
   }
   
   .about .about_main {
@@ -589,21 +586,21 @@ body {
   }
   
   .about .about_main .about_image .about_small_image img {
-    height: 90px;
+    height: 85px;
     margin: 5px 0;
     cursor: pointer;
   }
   
   .about .about_main .image_container {
     padding: 1px;
-    width: 280px;
+    width: calc(80%);
     margin-left: 50px;
   }
   
   .about .about_main .image_container img {
     border: 1px solid black;
     border-radius: 20px;
-    height: 380px;
+    height: calc(90%);
     box-shadow: 0 0 4px black;
   }  
 
@@ -701,7 +698,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     border-radius: 4px;
-    margin-left: 35px;
+    margin-left: 20px;
     transition: background 0.3s;
   }
   

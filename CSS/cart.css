@@ -65,7 +65,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.nav__links2 {
+.nav__icons .nav__links2 {
   display: none;
 }
 
@@ -465,12 +465,12 @@ span.price {
   color: var(--white);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .nav__container {
     left: -250px;
-    top: 5px;
-    background-color: transparent;
-    border-radius: 25px;
+    top: -0.1%;
+    background-color: white;
+    border-radius: 1px;
     backdrop-filter: blur(2px);
   }
 

@@ -13,7 +13,7 @@
 <body>
   <div class="header__bar">Free Shipping on Orders Over 1500LE</div>
   <nav class="section__container nav__container">
-    <a href="index.html" class="nav__logo" style="margin-left: -50px;">RICHMOND</a>
+    <a href="home2.html" class="nav__logo" style="margin-left: -50px;">RICHMOND</a>
     <ul class="nav__links">
       <li class="link"><a href="index.html">HOME</a></li>
       <li class="link"><a href="index.html" id="OUR-COLLECTION">OUR COLLECTION</a></li>
@@ -22,17 +22,14 @@
       <li class="link"><a href="index.html" id="ON-SALE">ON SALE</a></li>
     </ul>
     <div class="nav__icons">
-      <!-- <span><a href="Signup-Login.html"><i class="ri-shield-user-line"></i></a></span> -->
-      <!-- <span><i class="ri-search-line"></i></span> -->
-      <div class="menu-icon">
+      <div class="menu-icon" id="menu-icon">
         <i class="fa-solid fa-bars"></i>
       </div>
-      <ul class="nav__links2">
-        <li class="link"><a href="index.html">HOME</a></li>
-        <li class="link"><a href="#OUR-COLLECTION">OUR COLLECTION</a></li>
-        <li class="link"><a href="#NEW-ARRIVALS">NEW ARRIVALS</a></li>
-        <li class="link"><a href="#BEST-SELLER">BEST SELLER</a></li>
-        <li class="link"><a href="#ON-SALE">ON SALE</a></li>
+      <ul class="nav__links nav__links2">
+        <li class="link"><a href="home2.html">HOME</a></li>
+        <li class="link"><a href="delivery.html">DELIVERY</a></li>
+        <li class="link"><a href="aboutUs.html">ABOUT US</a></li>
+        <li class="link"><a href="return-exchange.html">RETURN | EXCHANGE</a></li>
       </ul>
       <span><a href="/myCart.html"><i class="ri-shopping-bag-2-line" id="cart-icon"><span id="cart-count" style="margin-left: 10px;">0</span></i></a></span>
     </div>
@@ -89,7 +86,7 @@
     <div class="footer__col">
       <h4 class="footer__heading">CONTACT INFO</h4>
       <p><i class="ri-map-pin-2-fill"></i> FIFTH SETTLEMENT</p>
-      <p><i class="ri-mail-fill"></i> Richmond.eg@gmail.com</p>
+      <a href="mailto:richmondstore.eg@gmail.com"><p><i class="ri-mail-fill"></i> richmondstore.eg@gmail.com</p></a>
       <p><i class="ri-phone-fill"></i> 01281234567</p>
     </div>
     <div class="footer__col">
@@ -117,6 +114,10 @@
     </div>
   </div>
   <script src="../JS/cart.js"></script>  
-  <script src="/JS/view-bar.js"></script>
+  <script>
+    document.getElementById('menu-icon').addEventListener('click', function() {
+    document.querySelector('.nav__links2').classList.toggle('active');
+  });
+  </script>
 </body>
 </html>

@@ -65,7 +65,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.nav__links2 {
+.nav__icons .nav__links2 {
   display: none;
 }
 
@@ -415,7 +415,7 @@ body {
   }
 }
 
-@media (width < 600px) {
+@media (width < 599px) {
   header {
     margin-top: 0;
   }
@@ -442,9 +442,9 @@ body {
 
   .nav__container {
     left: -250px;
-    top: 5px;
-    background-color: transparent;
-    border-radius: 25px;
+    top: -0.1%;
+    background-color: white;
+    border-radius: 1px;
     backdrop-filter: blur(2px);
   }
 

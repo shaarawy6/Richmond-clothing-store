@@ -792,6 +792,7 @@ header {
     margin-top: 640px;
     background-color: #ffffff;
     padding: 35px 15px;
+    display: none;
   }
 
   .header__content h1 {
@@ -836,7 +837,6 @@ header {
   #BEST-SELLER,
   #ON-SALE {
     margin-top: 0;
-    display: none;
   }
 
   .top-bottom {
@@ -869,20 +869,11 @@ header {
     grid-template-columns: repeat(1, 1fr);
     margin-top: -15px;
     margin-bottom: 0;
-    display: none;
-  }
-
-  .footer__bar {
-    display: none;
   }
 
   .footer__col h4 {
     margin-top: -15px;
     font-size: 20px;
     color: #575c67;
-  }
-
-  hr {
-    display: none;
   }
 }

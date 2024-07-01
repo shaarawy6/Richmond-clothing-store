@@ -235,7 +235,8 @@ body {
 }
 
 .container2 span.price {
-  margin-top: -36px;
+  margin-top: -32px;
+  margin-right: -8px;
 }
 
 .container2 .product-num {
@@ -465,7 +466,7 @@ span.price {
 
   .container2 {
     left: 50%;
-    width: calc(110%);
+    width: calc(111%);
     margin-left: calc(10%);
     margin-right: calc(11%);
   }

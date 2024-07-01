@@ -239,7 +239,8 @@ body {
 }
 
 .container2 span.price {
-  margin-top: -36px;
+  margin-top: -32px;
+  margin-right: -8px;
 }
 
 .container2 .product-num {

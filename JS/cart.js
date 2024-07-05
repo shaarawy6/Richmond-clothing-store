@@ -25,6 +25,7 @@ function addToCart() {
   cart.push(item);
   updateCartCount();
   saveCart();
+  updateCartTotal(); // Ensure cart total is updated when items are added
 }
 
 function updateCartCount() {
@@ -50,6 +51,7 @@ function loadCart() {
   if (savedCart) {
     cart = JSON.parse(savedCart);
     updateCartCount();
+    updateCartTotal(); // Ensure cart total is updated when cart is loaded
   } else {
     updateCartCount(); // Ensure cart icon state is updated even if the cart is empty
   }
@@ -61,6 +63,7 @@ function deleteCartItem(itemId) {
   saveCart();
   loadCartItems();
   loadPaymentCartItems(); // Ensure payment pages are updated
+  updateCartTotal(); // Ensure cart total is updated when items are deleted
 }
 
 function loadCartItems() {
@@ -123,6 +126,43 @@ function loadPaymentCartItems() {
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
 }
 
+function updateDeliveryFee() {
+  const citySelect = document.getElementById('city');
+  const selectedCity = citySelect.value;
+
+  let totalPrice = cart.reduce((acc, item) => acc + parseFloat(item.price) * parseInt(item.quantity), 0);
+
+  if (totalPrice >= 1500) {
+    deliveryFee = 0;
+  } else {
+    if (selectedCity === 'cairo') {
+      deliveryFee = 50;
+    } else if (selectedCity === 'alex') {
+      deliveryFee = 60;
+    } else if (selectedCity === 'other') {
+      deliveryFee = 100;
+    } else {
+      deliveryFee = 0;
+    }
+  }
+
+  updateCartTotal();
+}
+
+function updateCartTotal() {
+  const savedCart = sessionStorage.getItem('cart');
+  const cart = savedCart ? JSON.parse(savedCart) : [];
+  let totalPrice = 0;
+
+  cart.forEach(item => {
+    totalPrice += parseFloat(item.price) * parseInt(item.quantity);
+  });
+
+  // Calculate total price after considering delivery fee
+  let finalPrice = totalPrice + (totalPrice >= 1500 ? 0 : deliveryFee);
+  document.querySelector(".container2 #total-price").innerText = `${finalPrice}LE`;
+}
+
 // Use event listeners to load the respective functions based on the page
 window.addEventListener('load', () => {
   loadCart();
@@ -145,35 +185,3 @@ document.querySelectorAll('.wrap-button .option-button').forEach(button => {
     button.classList.add('selected');
   });
 });
-
-let deliveryFee = 0;
-
-function updateDeliveryFee() {
-  const citySelect = document.getElementById('city');
-  const selectedCity = citySelect.value;
-
-  if (selectedCity === 'cairo') {
-    deliveryFee = 50;
-  } else if (selectedCity === 'alex') {
-    deliveryFee = 60;
-  } else if (selectedCity === 'other') {
-    deliveryFee = 100;
-  } else {
-    deliveryFee = 0;
-  }
-
-  updateCartTotal();
-}
-
-function updateCartTotal() {
-  const savedCart = sessionStorage.getItem('cart');
-  const cart = savedCart ? JSON.parse(savedCart) : [];
-  let totalPrice = 0;
-
-  cart.forEach(item => {
-    totalPrice += parseFloat(item.price) * parseInt(item.quantity);
-  });
-
-  totalPrice += deliveryFee;
-  document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
-}

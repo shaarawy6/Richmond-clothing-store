@@ -25,6 +25,7 @@ function addToCart() {
   cart.push(item);
   updateCartCount();
   saveCart();
+  updateCartTotal(); // Update cart total including delivery fee after adding an item
 }
 
 function updateCartCount() {
@@ -61,6 +62,7 @@ function deleteCartItem(itemId) {
   saveCart();
   loadCartItems();
   loadPaymentCartItems(); // Ensure payment pages are updated
+  updateCartTotal(); // Update cart total including delivery fee after deleting an item
 }
 
 function loadCartItems() {
@@ -154,6 +156,8 @@ function updateCartTotal(cartTotal = 0) {
 
   if (cartTotal >= 1500) {
     deliveryFee = 0; // Free shipping for orders 1500 LE or more
+  } else {
+    updateDeliveryFee(); // Ensure delivery fee is updated if total is less than 1500 LE
   }
 
   const totalPrice = cartTotal + deliveryFee;

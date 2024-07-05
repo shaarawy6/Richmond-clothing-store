@@ -180,11 +180,11 @@ let cart = [];
       const selectedCity = citySelect.value;
 
       if (selectedCity === 'cairo') {
-        deliveryFee = 50;
+        deliveryFee = 55;
       } else if (selectedCity === 'alex') {
-        deliveryFee = 60;
+        deliveryFee = 70;
       } else if (selectedCity === 'other') {
-        deliveryFee = 100;
+        deliveryFee = 90;
       } else {
         deliveryFee = 0;
       }

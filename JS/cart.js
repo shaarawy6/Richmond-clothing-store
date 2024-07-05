@@ -213,11 +213,11 @@ window.addEventListener('load', () => {
   const pathname = window.location.pathname.toLowerCase();
   console.log('Current pathname:', pathname);
 
-  if (pathname.endsWith('/mycart.html')) {
+  if (pathname.endsWith('/mycart')) {
     loadCartItems();
-  } else if (pathname.endsWith('/visacard.html')) {
+  } else if (pathname.endsWith('/visacard')) {
     loadPaymentCartItems();
-  } else if (pathname.endsWith('/cash.html')) {
+  } else if (pathname.endsWith('/cash')) {
     loadPaymentCartItems();
   }
 });

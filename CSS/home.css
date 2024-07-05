@@ -223,8 +223,9 @@ header {
 }
 
 .header__image img {
-  max-width: 500px;
+  max-width: 400px;
   position: absolute;
+  margin-left: 150px;
   bottom: -5rem;
 }
 

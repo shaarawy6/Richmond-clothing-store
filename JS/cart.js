@@ -7,25 +7,31 @@ function addToCart() {
     return;
   }
   let size = sizeElement.innerText;
-  let quantity = document.getElementById("quantity").value;
+  let quantity = parseInt(document.getElementById("quantity").value);
   let name = document.querySelector('.product-information h1').innerText;
   let price = document.querySelector('.product-information h3').innerText.replace('LE', '').trim();
   let imgSrc = document.getElementById("imagebox").src;
-  let id = Date.now(); // Generate a unique identifier for each item
   
-  let item = {
-    id: id,
-    name: name,
-    size: size,
-    quantity: quantity,
-    price: price,
-    imgSrc: imgSrc
-  };
-
-  cart.push(item);
+  // Check if item already exists in the cart
+  let existingItem = cart.find(item => item.name === name && item.size === size);
+  if (existingItem) {
+    // Update the quantity of the existing item
+    existingItem.quantity += quantity;
+  } else {
+    let id = Date.now(); // Generate a unique identifier for each item
+    let item = {
+      id: id,
+      name: name,
+      size: size,
+      quantity: quantity,
+      price: price,
+      imgSrc: imgSrc
+    };
+    cart.push(item);
+  }
+  
   updateCartCount();
   saveCart();
-  updateCartTotal(); // Update cart total including delivery fee after adding an item
 }
 
 function updateCartCount() {
@@ -56,13 +62,39 @@ function loadCart() {
   }
 }
 
+function incrementQuantity(itemId) {
+  let item = cart.find(item => item.id === itemId);
+  if (item) {
+    item.quantity += 1;
+    updateCartCount();
+    saveCart();
+    loadCartItems();
+    loadPaymentCartItems();
+  }
+}
+
+function decrementQuantity(itemId) {
+  let item = cart.find(item => item.id === itemId);
+  if (item) {
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+      updateCartCount();
+      saveCart();
+      loadCartItems();
+      loadPaymentCartItems();
+    } else {
+      deleteCartItem(itemId);
+    }
+  }
+}
+
 function deleteCartItem(itemId) {
   cart = cart.filter(item => item.id !== itemId);
   updateCartCount();
   saveCart();
   loadCartItems();
   loadPaymentCartItems(); // Ensure payment pages are updated
-  updateCartTotal(); // Update cart total including delivery fee after deleting an item
+  resetLocationSelection(); // Force user to reselect location
 }
 
 function loadCartItems() {
@@ -81,9 +113,12 @@ function loadCartItems() {
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
       <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
-      <span class="quantity">Quantity: ${item.quantity}</span> 
+      <span class="quantity">
+        <button onclick="decrementQuantity(${item.id})">-</button>
+        ${item.quantity}
+        <button onclick="incrementQuantity(${item.id})">+</button>
+      </span>
       <span class="price">${item.price}LE</span> 
-      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -113,9 +148,12 @@ function loadPaymentCartItems() {
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
       <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
-      <span class="quantity">Quantity: ${item.quantity}</span> 
+      <span class="quantity">
+        <button onclick="decrementQuantity(${item.id})">-</button>
+        ${item.quantity}
+        <button onclick="incrementQuantity(${item.id})">+</button>
+      </span>
       <span class="price">${item.price}LE</span> 
-      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -156,12 +194,16 @@ function updateCartTotal(cartTotal = 0) {
 
   if (cartTotal >= 1500) {
     deliveryFee = 0; // Free shipping for orders 1500 LE or more
-  } else {
-    updateDeliveryFee(); // Ensure delivery fee is updated if total is less than 1500 LE
   }
 
   const totalPrice = cartTotal + deliveryFee;
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+}
+
+function resetLocationSelection() {
+  const citySelect = document.getElementById('city');
+  citySelect.selectedIndex = 0; // Reset to the default option
+  alert('Please reselect your location for delivery fee calculation.');
 }
 
 // Use event listeners to load the respective functions based on the page
@@ -171,11 +213,11 @@ window.addEventListener('load', () => {
   const pathname = window.location.pathname.toLowerCase();
   console.log('Current pathname:', pathname);
 
-  if (pathname.endsWith('/mycart')) {
+  if (pathname.endsWith('/mycart.html')) {
     loadCartItems();
-  } else if (pathname.endsWith('/visacard')) {
+  } else if (pathname.endsWith('/visacard.html')) {
     loadPaymentCartItems();
-  } else if (pathname.endsWith('/cash')) {
+  } else if (pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 });

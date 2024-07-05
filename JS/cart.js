@@ -60,6 +60,7 @@ function deleteCartItem(itemId) {
   updateCartCount();
   saveCart();
   loadCartItems();
+  loadPaymentCartItems(); // Ensure payment pages are updated
 }
 
 function loadCartItems() {
@@ -109,7 +110,8 @@ function loadPaymentCartItems() {
       <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
-      <span class="price">${item.price}LE</span></p>
+      <span class="price">${item.price}LE</span> 
+      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);

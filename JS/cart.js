@@ -11,8 +11,10 @@ function addToCart() {
   let name = document.querySelector('.product-information h1').innerText;
   let price = document.querySelector('.product-information h3').innerText.replace('LE', '').trim();
   let imgSrc = document.getElementById("imagebox").src;
+  let id = Date.now(); // Generate a unique identifier for each item
   
   let item = {
+    id: id,
     name: name,
     size: size,
     quantity: quantity,
@@ -53,6 +55,13 @@ function loadCart() {
   }
 }
 
+function deleteCartItem(itemId) {
+  cart = cart.filter(item => item.id !== itemId);
+  updateCartCount();
+  saveCart();
+  loadCartItems();
+}
+
 function loadCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
@@ -70,7 +79,8 @@ function loadCartItems() {
       <a href="viewProduct.html">${item.name}</a> 
       <span class="size">Size: ${item.size}</span> 
       <span class="quantity">Quantity: ${item.quantity}</span> 
-      <span class="price">${item.price}LE</span></p>
+      <span class="price">${item.price}LE</span> 
+      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);

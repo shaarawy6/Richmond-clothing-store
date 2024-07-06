@@ -1,4 +1,6 @@
 let cart = [];
+let deliveryFee = 0; // Initialize delivery fee
+let cityResetRequired = false; // Flag to track if city selection reset is required
 
 function addToCart() {
   let sizeElement = document.querySelector('.wrap-button .option-button.selected');
@@ -12,13 +14,11 @@ function addToCart() {
   let price = document.querySelector('.product-information h3').innerText.replace('LE', '').trim();
   let imgSrc = document.getElementById("imagebox").src;
   
-  // Check if item already exists in the cart
   let existingItem = cart.find(item => item.name === name && item.size === size);
   if (existingItem) {
-    // Update the quantity of the existing item
     existingItem.quantity += quantity;
   } else {
-    let id = Date.now(); // Generate a unique identifier for each item
+    let id = Date.now(); 
     let item = {
       id: id,
       name: name,
@@ -59,7 +59,7 @@ function loadCart() {
     cart = JSON.parse(savedCart);
     updateCartCount();
   } else {
-    updateCartCount(); // Ensure cart icon state is updated even if the cart is empty
+    updateCartCount();
   }
 }
 
@@ -94,8 +94,8 @@ function deleteCartItem(itemId) {
   updateCartCount();
   saveCart();
   loadCartItems();
-  loadPaymentCartItems(); // Ensure payment pages are updated
-  resetLocationSelection(); // Force user to reselect location
+  loadPaymentCartItems();
+  resetLocationSelection();
 }
 
 function loadCartItems() {
@@ -105,11 +105,11 @@ function loadCartItems() {
 
   if (cart.length === 0) {
     alert("Your cart is empty, please add items.");
-    window.location.href = 'index.html'; // Redirect to home page
+    window.location.href = 'index.html';
     return;
   }
 
-  cartItemsContainer.innerHTML = ''; // Clear existing items
+  cartItemsContainer.innerHTML = '';
   let totalCount = 0;
   let totalPrice = 0;
 
@@ -127,7 +127,6 @@ function loadCartItems() {
         <button onclick="incrementQuantity(${item.id})">+</button>
       </span>
       <span class="price">${item.price}LE</span> 
-      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -138,14 +137,14 @@ function loadCartItems() {
   document.getElementById("cart-item-count").innerText = totalCount;
   document.getElementById("total-price").innerText = `${totalPrice}LE`;
 
-  updateCartTotal(totalPrice); // Update cart total and delivery fee based on total price
+  updateCartTotal(totalPrice);
 }
 
 function loadPaymentCartItems() {
   let savedCart = sessionStorage.getItem('cart');
   let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
-  cartItemsContainer.innerHTML = ''; // Clear existing items
+  cartItemsContainer.innerHTML = '';
   let totalCount = 0;
   let totalPrice = 0;
 
@@ -163,7 +162,6 @@ function loadPaymentCartItems() {
         <button onclick="incrementQuantity(${item.id})">+</button>
       </span>
       <span class="price">${item.price}LE</span> 
-      <button onclick="deleteCartItem(${item.id})">Delete</button></p>
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -174,10 +172,8 @@ function loadPaymentCartItems() {
   document.querySelector(".container2 #cart-item-count").innerText = totalCount;
   document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
 
-  updateCartTotal(totalPrice); // Update cart total and delivery fee based on total price
+  updateCartTotal(totalPrice);
 }
-
-let deliveryFee = 0;
 
 function updateDeliveryFee() {
   const citySelect = document.getElementById('city');
@@ -193,7 +189,7 @@ function updateDeliveryFee() {
     deliveryFee = 0;
   }
 
-  updateCartTotal(); // Recalculate the cart total when delivery fee is updated
+  updateCartTotal(); 
 }
 
 function updateCartTotal(cartTotal = 0) {
@@ -205,7 +201,13 @@ function updateCartTotal(cartTotal = 0) {
   }
 
   if (cartTotal >= 1500) {
-    deliveryFee = 0; // Free shipping for orders 1500 LE or more
+    deliveryFee = 0;
+    cityResetRequired = false; // Reset the flag since the total is now above 1500
+    document.getElementById('free-shipping').style.display = 'block'; // Show FREE SHIPPING text
+  } else if (!cityResetRequired) {
+    cityResetRequired = true;
+    resetLocationSelection();
+    document.getElementById('free-shipping').style.display = 'none'; // Hide FREE SHIPPING text
   }
 
   const totalPrice = cartTotal + deliveryFee;
@@ -214,22 +216,21 @@ function updateCartTotal(cartTotal = 0) {
 
 function resetLocationSelection() {
   const citySelect = document.getElementById('city');
-  citySelect.selectedIndex = 0; // Reset to the default option
+  citySelect.selectedIndex = 0;
   alert('Please reselect your location for delivery fee calculation.');
 }
 
-// Use event listeners to load the respective functions based on the page
 window.addEventListener('load', () => {
   loadCart();
 
   const pathname = window.location.pathname.toLowerCase();
   console.log('Current pathname:', pathname);
 
-  if (pathname.endsWith('/mycart')) {
+  if (pathname.endsWith('/mycart.html')) {
     loadCartItems();
-  } else if (pathname.endsWith('/visacard')) {
+  } else if (pathname.endsWith('/visacard.html')) {
     loadPaymentCartItems();
-  } else if (pathname.endsWith('/cash')) {
+  } else if (pathname.endsWith('/cash.html')) {
     loadPaymentCartItems();
   }
 });
@@ -247,6 +248,6 @@ document.getElementById('orderForm').addEventListener('submit', function(event) 
   } else {
     event.preventDefault();
     alert("Your cart is empty, please add items.");
-    window.location.href = 'index.html'; // Redirect to home page
+    window.location.href = 'index.html';
   }
 });

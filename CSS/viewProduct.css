@@ -80,14 +80,15 @@ body {
 }
 
 .nav__container {
+  max-width: var(--max-width);
+  margin: auto;
   position: fixed;
-  top: 0;
-  left: -100px;
+  top: calc(2%);
   width: 100%;
-  margin-top: 26px;
-  margin-left: 250px;
-  padding: 2rem 5rem;
   display: flex;
+  padding: 2rem 4rem;
+  left: calc(50%);
+  transform: translateX(-50%);
   align-items: center;
   justify-content: space-between;
   border-radius: 45px;
@@ -108,11 +109,22 @@ body {
 }
 
 .nav__logo {
-  font-size: 1.5rem;
+  font-size: 120%;
   font-weight: 700;
   color: transparent;
   -webkit-text-stroke: 1px black;
   position: relative;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.nav__icons .nav__links2 {
+  display: none;
 }
 
 .nav__logo::before {
@@ -131,13 +143,13 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 1rem; 
-  margin-left: -50px;
+  gap: 1rem;
+  margin-left: 0.5rem;
 }
 
 .link a {
   padding: 0 0.5rem;
-  font-size: 0.9rem;
+  font-size: 70%;
   font-weight: 600;
   color: var(--text-light);
   transition: 0.3s;
@@ -155,6 +167,7 @@ body {
 .nav__icons span {
   font-size: 1.25rem;
   cursor: pointer;
+  margin-top: -0.5rem;
 }
 
 .nav__icons span a {
@@ -410,6 +423,8 @@ body {
 .copyright {
   font-size: 0.9rem;
   font-weight: 500;
+  margin: auto;
+  width: 23rem;
   color: var(--text-light);
 }
 
@@ -488,8 +503,8 @@ body {
 
 @media (max-width: 599px) {
   .nav__container {
-    left: -250px;
-    top: -0.1%;
+    margin: auto;
+    top: 3.2%;
     background-color: white;
     border-radius: 1px;
     backdrop-filter: blur(2px);
@@ -497,29 +512,12 @@ body {
 
   .nav__links {
     display: none;
-  }
-
-  .nav__logo {
-    font-size: 19px;
-    margin-top: -10px;
-    left: -13px;
-  }
-
-  .menu-icon {
-    display: block;
-    position: absolute;
-    margin-left: -49px;
-    margin-top: -22px;
-  }
-
-  .nav__links {
-    display: none;
     flex-direction: column;
     width: 50%;
     position: absolute;
-    top: 70px;
+    top: 4.3rem;
     left: 0;
-    margin-left: 205px;
+    margin-left: 13rem;
     background-color: #fff;
     border-top: 1px solid #ccc;
   }
@@ -538,6 +536,19 @@ body {
     display: flex;
   }
 
+  .nav__logo {
+    font-size: 1.25rem;
+    margin-top: -1rem;
+    margin: auto;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    margin-left: -3.2rem;
+    margin-top: -1.3rem;
+  }
+
   .nav__icons {
     display: flex;
     gap: 1rem;
@@ -546,15 +557,14 @@ body {
   .nav__icons i {
     font-size: 1.25rem;
     position: absolute;
-    margin-top: 6px;
-    margin-left: 70px;
+    margin-left: 4.4rem;
     cursor: pointer;
   }
 
   .nav__icons span {
     font-size: 1.25rem;
-    margin-top: -14px;
-    margin-left: -100px;
+    margin-top: -1rem;
+    margin-left: -6.25rem;
     cursor: pointer;
   }
 
@@ -656,7 +666,7 @@ body {
   
   .option-button {
     padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #a5a5a5;
     border-radius: 4px;
     background: #f8f8f8;
     cursor: pointer;
@@ -664,7 +674,7 @@ body {
   }
   
   .option-button:hover {
-    background: #eee;
+    background: #acacac;
   }
   
   .view-bottom {

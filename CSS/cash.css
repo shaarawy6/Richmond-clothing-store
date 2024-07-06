@@ -61,6 +61,10 @@ img {
   display: block;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   overflow-x: hidden;

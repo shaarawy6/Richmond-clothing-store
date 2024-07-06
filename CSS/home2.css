@@ -672,7 +672,7 @@ header {
   color: var(--white);
 }
 
-@media (width < 900px) {
+/* @media (width < 900px) {
   header {
     margin-top: 5rem;
   }
@@ -709,7 +709,7 @@ header {
   .footer__form {
     justify-content: center;
   }
-}
+} */
 
 @media (width < 599px) {
   .nav__container {
@@ -875,5 +875,10 @@ header {
     margin-top: -15px;
     font-size: 20px;
     color: #575c67;
+  }
+
+  .copyright {
+    text-align: center;
+    width: calc(220%);
   }
 }

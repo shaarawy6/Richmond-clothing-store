@@ -56,6 +56,10 @@ a {
   text-decoration: none;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 img {
   width: 100%;
   display: block;
@@ -63,6 +67,7 @@ img {
 
 body {
   font-family: "Montserrat", sans-serif;
+  height: -webkit-fill-available;
 }
 
 .nav__icons .nav__links2 {

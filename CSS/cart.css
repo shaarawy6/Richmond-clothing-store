@@ -61,8 +61,13 @@ img {
   display: block;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
+  height: -webkit-fill-available;
 }
 
 .nav__icons .nav__links2 {

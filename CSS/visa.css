@@ -61,10 +61,15 @@ img {
   display: block;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   overflow-x: hidden;
   overflow-x: hidden;
+  height: -webkit-fill-available;
 }
 
 .nav__icons .nav__links2 {

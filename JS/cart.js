@@ -1,6 +1,4 @@
 let cart = [];
-let deliveryFee = 0; // Initialize delivery fee
-let cityResetRequired = false; // Flag to track if city selection reset is required
 
 function addToCart() {
   let sizeElement = document.querySelector('.wrap-button .option-button.selected');
@@ -11,29 +9,70 @@ function addToCart() {
   let size = sizeElement.innerText;
   let quantity = parseInt(document.getElementById("quantity").value);
   let name = document.querySelector('.product-information h1').innerText;
-  let price = document.querySelector('.product-information h3').innerText.replace('LE', '').trim();
+  let price = parseFloat(document.querySelector('.product-information h3').innerText.replace('LE', '').trim());
   let imgSrc = document.getElementById("imagebox").src;
   
+  // Check if item already exists in the cart
   let existingItem = cart.find(item => item.name === name && item.size === size);
   if (existingItem) {
+    // Update the quantity of the existing item
     existingItem.quantity += quantity;
   } else {
-    let id = Date.now(); 
+    let id = Date.now(); // Generate a unique identifier for each item
     let item = {
       id: id,
       name: name,
       size: size,
       quantity: quantity,
       price: price,
-      imgSrc: imgSrc
+      imgSrc: imgSrc,
+      originalPrice: price // Store the original price
     };
     cart.push(item);
   }
   
+  applyPricingLogic(); // Apply the new pricing logic
   updateCartCount();
   saveCart();
-  alert("Item has been added to the cart");
 }
+
+function applyPricingLogic() {
+  const eligibleProducts = ["Destroyed ripped T-shirt", "Chaser T-shirt", "05 jersey T-shirt"];
+  const eligibleItems = cart.filter(item => eligibleProducts.includes(item.name));
+  
+  // Reset prices to original before applying discounts
+  cart.forEach(item => {
+    if (eligibleProducts.includes(item.name)) {
+      item.price = item.originalPrice;
+    }
+  });
+
+  if (eligibleItems.length === 1) {
+    // 20% off for a single T-shirt
+    eligibleItems[0].price = eligibleItems[0].originalPrice * 0.8;
+  } else if (eligibleItems.length === 2) {
+    // 50% off the cheaper T-shirt (or the second one if prices are equal)
+    eligibleItems.sort((a, b) => b.originalPrice - a.originalPrice);
+    eligibleItems[1].price = eligibleItems[1].originalPrice * 0.5;
+  } else if (eligibleItems.length === 3) {
+    // Sort by price, descending
+    eligibleItems.sort((a, b) => b.originalPrice - a.originalPrice);
+    
+    if (eligibleItems[0].originalPrice === eligibleItems[2].originalPrice) {
+      // All same price: two at full price, one free
+      eligibleItems[2].price = 0;
+    } else if (eligibleItems[0].originalPrice > eligibleItems[1].originalPrice &&
+               eligibleItems[1].originalPrice === eligibleItems[2].originalPrice) {
+      // One expensive, two cheaper: expensive at full price, one cheaper at full price, one free
+      eligibleItems[2].price = 0;
+    } else {
+      // Two expensive, one cheaper: two at full price, one free
+      eligibleItems[2].price = 0;
+    }
+  }
+}
+
+// Preserve original functions
 
 function updateCartCount() {
   let cartCount = document.getElementById("cart-count");
@@ -57,9 +96,10 @@ function loadCart() {
   let savedCart = sessionStorage.getItem('cart');
   if (savedCart) {
     cart = JSON.parse(savedCart);
+    applyPricingLogic(); // Apply pricing logic after loading cart
     updateCartCount();
   } else {
-    updateCartCount();
+    updateCartCount(); // Ensure cart icon state is updated even if the cart is empty
   }
 }
 
@@ -67,6 +107,7 @@ function incrementQuantity(itemId) {
   let item = cart.find(item => item.id === itemId);
   if (item) {
     item.quantity += 1;
+    applyPricingLogic(); // Reapply pricing logic after quantity change
     updateCartCount();
     saveCart();
     loadCartItems();
@@ -79,6 +120,7 @@ function decrementQuantity(itemId) {
   if (item) {
     if (item.quantity > 1) {
       item.quantity -= 1;
+      applyPricingLogic(); // Reapply pricing logic after quantity change
       updateCartCount();
       saveCart();
       loadCartItems();
@@ -91,31 +133,27 @@ function decrementQuantity(itemId) {
 
 function deleteCartItem(itemId) {
   cart = cart.filter(item => item.id !== itemId);
+  applyPricingLogic(); // Reapply pricing logic after item deletion
   updateCartCount();
   saveCart();
   loadCartItems();
-  loadPaymentCartItems();
-  resetLocationSelection();
+  loadPaymentCartItems(); // Ensure payment pages are updated
+  resetLocationSelection(); // Force user to reselect location
 }
 
 function loadCartItems() {
-  let savedCart = sessionStorage.getItem('cart');
-  let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.getElementById("cart-items");
-
-  if (cart.length === 0) {
-    alert("Your cart is empty, please add items.");
-    window.location.href = 'index.html';
-    return;
-  }
-
-  cartItemsContainer.innerHTML = '';
+  cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
 
   cart.forEach(item => {
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
+    
+    let displayPrice = item.price !== item.originalPrice 
+      ? `<span class="original-price" style="text-decoration: line-through;">${item.originalPrice.toFixed(2)}LE</span> ${item.price.toFixed(2)}LE` 
+      : `${item.price.toFixed(2)}LE`;
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
@@ -126,7 +164,7 @@ function loadCartItems() {
         ${item.quantity}
         <button onclick="incrementQuantity(${item.id})">+</button>
       </span>
-      <span class="price">${item.price}LE</span> 
+      <span class="price">${displayPrice}</span> 
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -135,22 +173,24 @@ function loadCartItems() {
   });
 
   document.getElementById("cart-item-count").innerText = totalCount;
-  document.getElementById("total-price").innerText = `${totalPrice}LE`;
+  document.getElementById("total-price").innerText = `${totalPrice.toFixed(2)}LE`;
 
-  updateCartTotal(totalPrice);
+  updateCartTotal(totalPrice); // Update cart total and delivery fee based on total price
 }
 
 function loadPaymentCartItems() {
-  let savedCart = sessionStorage.getItem('cart');
-  let cart = savedCart ? JSON.parse(savedCart) : [];
   let cartItemsContainer = document.querySelector(".container2 #cart-items");
-  cartItemsContainer.innerHTML = '';
+  cartItemsContainer.innerHTML = ''; // Clear existing items
   let totalCount = 0;
   let totalPrice = 0;
 
   cart.forEach(item => {
     let itemElement = document.createElement("div");
     itemElement.classList.add("cart-item");
+    
+    let displayPrice = item.price !== item.originalPrice 
+      ? `<span class="original-price" style="text-decoration: line-through;">${item.originalPrice.toFixed(2)}LE</span> ${item.price.toFixed(2)}LE` 
+      : `${item.price.toFixed(2)}LE`;
     
     itemElement.innerHTML = `
       <p><img src="${item.imgSrc}" alt="${item.name}" style="width:50px; height:50px;"> 
@@ -161,7 +201,7 @@ function loadPaymentCartItems() {
         ${item.quantity}
         <button onclick="incrementQuantity(${item.id})">+</button>
       </span>
-      <span class="price">${item.price}LE</span> 
+      <span class="price">${displayPrice}</span> 
     `;
     
     cartItemsContainer.appendChild(itemElement);
@@ -170,10 +210,12 @@ function loadPaymentCartItems() {
   });
 
   document.querySelector(".container2 #cart-item-count").innerText = totalCount;
-  document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+  document.querySelector(".container2 #total-price").innerText = `${totalPrice.toFixed(2)}LE`;
 
-  updateCartTotal(totalPrice);
+  updateCartTotal(totalPrice); // Update cart total and delivery fee based on total price
 }
+
+// Preserve other original functions
 
 function updateDeliveryFee() {
   const citySelect = document.getElementById('city');
@@ -189,7 +231,7 @@ function updateDeliveryFee() {
     deliveryFee = 0;
   }
 
-  updateCartTotal(); 
+  updateCartTotal(); // Recalculate the cart total when delivery fee is updated
 }
 
 function updateCartTotal(cartTotal = 0) {
@@ -201,25 +243,20 @@ function updateCartTotal(cartTotal = 0) {
   }
 
   if (cartTotal >= 1500) {
-    deliveryFee = 0;
-    cityResetRequired = false; // Reset the flag since the total is now above 1500
-    document.getElementById('free-shipping').style.display = 'block'; // Show FREE SHIPPING text
-  } else if (!cityResetRequired) {
-    cityResetRequired = true;
-    resetLocationSelection();
-    document.getElementById('free-shipping').style.display = 'none'; // Hide FREE SHIPPING text
+    deliveryFee = 0; // Free shipping for orders 1500 LE or more
   }
 
   const totalPrice = cartTotal + deliveryFee;
-  document.querySelector(".container2 #total-price").innerText = `${totalPrice}LE`;
+  document.querySelector(".container2 #total-price").innerText = `${totalPrice.toFixed(2)}LE`;
 }
 
 function resetLocationSelection() {
   const citySelect = document.getElementById('city');
-  citySelect.selectedIndex = 0;
+  citySelect.selectedIndex = 0; // Reset to the default option
   alert('Please reselect your location for delivery fee calculation.');
 }
 
+// Use event listeners to load the respective functions based on the page
 window.addEventListener('load', () => {
   loadCart();
 
@@ -240,14 +277,4 @@ document.querySelectorAll('.wrap-button .option-button').forEach(button => {
     document.querySelectorAll('.wrap-button .option-button').forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
   });
-});
-
-document.getElementById('orderForm').addEventListener('submit', function(event) {
-  if (cart.length > 0) {
-    alert("Please wait for robot and email verifications");
-  } else {
-    event.preventDefault();
-    alert("Your cart is empty, please add items.");
-    window.location.href = 'index.html';
-  }
 });

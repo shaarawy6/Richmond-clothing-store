@@ -49,26 +49,17 @@ function applyPricingLogic() {
 
   if (eligibleItems.length === 1) {
     // 20% off for a single T-shirt
-    eligibleItems[0].price = eligibleItems[0].originalPrice * 0.8;
+    eligibleItems[0].price = eligibleItems[0].originalPrice * 1;
   } else if (eligibleItems.length === 2) {
     // 50% off the cheaper T-shirt (or the second one if prices are equal)
     eligibleItems.sort((a, b) => b.originalPrice - a.originalPrice);
-    eligibleItems[1].price = eligibleItems[1].originalPrice * 0.5;
+    eligibleItems[1].price = eligibleItems[1].originalPrice * 0.875;
   } else if (eligibleItems.length === 3) {
     // Sort by price, descending
     eligibleItems.sort((a, b) => b.originalPrice - a.originalPrice);
-    
-    if (eligibleItems[0].originalPrice === eligibleItems[2].originalPrice) {
+   (eligibleItems[0].originalPrice === eligibleItems[2].originalPrice) 
       // All same price: two at full price, one free
-      eligibleItems[2].price = 0;
-    } else if (eligibleItems[0].originalPrice > eligibleItems[1].originalPrice &&
-               eligibleItems[1].originalPrice === eligibleItems[2].originalPrice) {
-      // One expensive, two cheaper: expensive at full price, one cheaper at full price, one free
-      eligibleItems[2].price = 0;
-    } else {
-      // Two expensive, one cheaper: two at full price, one free
-      eligibleItems[2].price = 0;
-    }
+    eligibleItems[2].price = 260;
   }
 }
 
